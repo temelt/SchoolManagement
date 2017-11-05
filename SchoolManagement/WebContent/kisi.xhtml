@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+     <h:head>
+     
+
+     </h:head>
+
+     <h:body>
+
+		<p:dataTable var="kisi" value="#{kisiController.kisiList}">
+		    <p:column headerText="Id">
+		        <h:outputText value="#{kisi.id}" />
+		    </p:column>
+		 
+		    <p:column headerText="Ad">
+		        <h:outputText value="#{kisi.ad}" />
+		    </p:column>
+		 
+		    <p:column headerText="Soyad">
+		        <h:outputText value="#{kisi.soyad}" />
+		    </p:column>
+		</p:dataTable>
+
+     </h:body>
+</html>
