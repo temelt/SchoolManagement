@@ -28,7 +28,6 @@ public class KisiController implements Serializable {
 
 	@PostConstruct
 	private void init() {
-		System.out.println("KisiController oluþtu");
 		kisiList = kisiRepository.findAll();
 	}
 
