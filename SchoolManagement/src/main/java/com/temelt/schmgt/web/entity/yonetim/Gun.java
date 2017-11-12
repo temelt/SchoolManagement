@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.temelt.schmgt.web.entity.BaseEntity;
 
 @Entity
-@Table(name = "lessons")
+@Table(name = "days")
 public class Gun extends BaseEntity{
 
     private Long id;
