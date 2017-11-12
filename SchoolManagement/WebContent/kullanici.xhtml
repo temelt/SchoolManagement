@@ -1,28 +1,65 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
-     <h:head>
-     
+<h:head>
 
-     </h:head>
 
-     <h:body>
+</h:head>
 
-		<p:dataTable var="kul" value="#{kullaniciController.kullaniciList}">
-		    <p:column headerText="Id">
-		        <h:outputText value="#{kul.id}" />
-		    </p:column>
-		 
-		    <p:column headerText="Ad">
-		        <h:outputText value="#{kul.ad}" />
-		    </p:column>
-		 
-		    <p:column headerText="Soyad">
-		        <h:outputText value="#{kul.soyad}" />
-		    </p:column>
+<h:body>
+
+	<h:form>
+
+		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.kullaniciList}">
+			<p:column headerText="Id">
+				<h:outputText value="#{kul.id}" />
+			</p:column>
+
+			<p:column headerText="Ad">
+				<h:outputText value="#{kul.ad}" />
+			</p:column>
+
+			<p:column headerText="Soyad">
+				<h:outputText value="#{kul.soyad}" />
+			</p:column>
+
+			<p:column headerText="Kullanıcı Adı">
+				<h:outputText value="#{kul.kullaniciAdi}" />
+			</p:column>
 		</p:dataTable>
 
-     </h:body>
+		<h:panelGrid columns="1" cellpadding="5">
+			<p:commandButton value="Yeni" type="button"
+				onclick="PF('dlgKullanici').show();" />
+		</h:panelGrid>
+
+
+		<p:dialog header="Kullanıcı Tanımlama" resizable="false" modal="true"
+			widgetVar="dlgKullanici" id="dlgKullanici" minHeight="40">
+			<p:panelGrid columns="2">
+
+				<p:outputLabel>Kullanıcı Adı</p:outputLabel>
+				<p:inputText value="#{kullaniciController.kullanici.kullaniciAdi}"/>
+
+				<p:outputLabel>Adı</p:outputLabel>
+				<p:inputText value="#{kullaniciController.kullanici.ad}"/>
+
+				<p:outputLabel>Soyadı</p:outputLabel>
+				<p:inputText value="#{kullaniciController.kullanici.soyad}"/>
+				
+				<p:outputLabel>Şifre</p:outputLabel>
+				<p:password value="#{kullaniciController.kullanici.sifre}"/>
+
+				<p:commandButton value="İptal" type="button" onclick="PF('dlgKullanici').hide();" />
+
+				<p:commandButton value="Kaydet" actionListener="#{kullaniciController.kullaniciKaydet}" 
+				update="tblKullanici dlgKullanici" oncomplete="PF('dlgKullanici').hide();" />
+			</p:panelGrid>
+		</p:dialog>
+
+	</h:form>
+
+</h:body>
 </html>

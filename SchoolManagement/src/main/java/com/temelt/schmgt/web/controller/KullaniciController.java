@@ -25,17 +25,34 @@ public class KullaniciController implements Serializable {
 	private KullaniciRepository kullaniciRepository;
 
 	private List<Kullanici> kullaniciList;
+	private Kullanici kullanici;
 
 	@PostConstruct
 	private void init() {
+		kullaniciList = kullaniciRepository.findAll();
+		kullanici=new Kullanici();
+	}
+
+	public void kullaniciKaydet() {
+		System.out.println("Kullanýcý Kaydettik");
+		kullaniciRepository.save(kullanici);
+		kullanici=new Kullanici();
 		kullaniciList = kullaniciRepository.findAll();
 	}
 
 	public List<Kullanici> getKullaniciList() {
 		return kullaniciList;
 	}
-	
+
 	public void setKullaniciList(List<Kullanici> kullaniciList) {
 		this.kullaniciList = kullaniciList;
+	}
+
+	public Kullanici getKullanici() {
+		return kullanici;
+	}
+
+	public void setKullanici(Kullanici kullanici) {
+		this.kullanici = kullanici;
 	}
 }
