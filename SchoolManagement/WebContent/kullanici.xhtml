@@ -12,7 +12,10 @@
 
 	<h:form>
 
-		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.kullaniciList}">
+		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.kullaniciList}"
+		paginator="true"  rows="10"
+        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="5,10,15">
 			<p:column headerText="Id">
 				<h:outputText value="#{kul.id}" />
 			</p:column>
@@ -28,10 +31,22 @@
 			<p:column headerText="Kullanıcı Adı">
 				<h:outputText value="#{kul.kullaniciAdi}" />
 			</p:column>
+			
+			<p:column headerText="İşlemler" width="100">
+				<p:commandButton icon="ui-icon-trash" update="tblKullanici" actionListener="#{kullaniciController.kullaniciSil(kul.id)}">
+				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-pencil"></p:commandButton>
+				
+				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="İptal" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    </p:confirmDialog>
+			</p:column>
 		</p:dataTable>
 
 		<h:panelGrid columns="1" cellpadding="5">
-			<p:commandButton value="Yeni" type="button"
+			<p:commandButton value="Yeni" icon="ui-icon-plus" type="button"
 				onclick="PF('dlgKullanici').show();" />
 		</h:panelGrid>
 

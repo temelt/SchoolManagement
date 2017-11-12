@@ -39,6 +39,12 @@ public class KullaniciController implements Serializable {
 		kullanici=new Kullanici();
 		kullaniciList = kullaniciRepository.findAll();
 	}
+	
+	public void kullaniciSil(Long id) {
+		Kullanici k = kullaniciRepository.findOne(id);
+		kullaniciRepository.delete(k);
+		kullaniciList = kullaniciRepository.findAll();
+	}
 
 	public List<Kullanici> getKullaniciList() {
 		return kullaniciList;
