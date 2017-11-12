@@ -10,10 +10,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.temelt.schmgt.web.data.repository.SalonRepository;
-import com.temelt.schmgt.web.entity.kullanici.Kullanici;
 import com.temelt.schmgt.web.entity.yonetim.Salon;
 
-@Controller("SalonController")
+@Controller("salonController")
 @Scope("session")
 public class YonetimSalonController implements Serializable{
 
@@ -30,19 +29,17 @@ public class YonetimSalonController implements Serializable{
 		salon=new Salon();
 	}
 	
-	
-	public void kullaniciKaydet() {
+	public void salonKaydet() {
 		salonRepository.save(salon);
 		salon=new Salon();
 		salonList = salonRepository.findAll();
 	}
 	
-	public void kullaniciSil(Long id) {
+	public void salonSil(Long id) {
 		Salon s = salonRepository.findOne(id);
 		salonRepository.delete(s);
 		salonList = salonRepository.findAll();
 	}
-	
 	
 	public List<Salon> getSalonList() {
 		return salonList;
