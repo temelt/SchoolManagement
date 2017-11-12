@@ -10,17 +10,17 @@
 
      <h:body>
 
-		<p:dataTable var="kisi" value="#{kisiController.kisiList}">
+		<p:dataTable var="kul" value="#{kullaniciController.kullaniciList}">
 		    <p:column headerText="Id">
-		        <h:outputText value="#{kisi.id}" />
+		        <h:outputText value="#{kul.id}" />
 		    </p:column>
 		 
 		    <p:column headerText="Ad">
-		        <h:outputText value="#{kisi.ad}" />
+		        <h:outputText value="#{kul.ad}" />
 		    </p:column>
 		 
 		    <p:column headerText="Soyad">
-		        <h:outputText value="#{kisi.soyad}" />
+		        <h:outputText value="#{kul.soyad}" />
 		    </p:column>
 		</p:dataTable>
 
