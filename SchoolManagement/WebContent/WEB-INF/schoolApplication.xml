@@ -40,6 +40,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="javax.persistence.schema-generation.database.action">none</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.ejb.use_class_enhancer">true</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
