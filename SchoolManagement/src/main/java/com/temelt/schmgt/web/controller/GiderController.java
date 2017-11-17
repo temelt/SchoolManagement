@@ -1,9 +1,14 @@
 package com.temelt.schmgt.web.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -48,6 +53,16 @@ public class GiderController implements Serializable {
 		giderRepository.delete(g);
 		giderList=giderRepository.findAll();
 
+	}
+	
+	public void giderGuncelle(Long id,String konu,BigDecimal miktar, Date tarih){
+		
+	    Gider g=	giderRepository.findOne(id);
+	    g.setKonu(konu);
+	    g.setTarih(tarih);
+	    g.setMiktar(miktar);
+	    giderRepository.save(g);
+		
 	}
 	
 	public List<Gider> getGiderList() {

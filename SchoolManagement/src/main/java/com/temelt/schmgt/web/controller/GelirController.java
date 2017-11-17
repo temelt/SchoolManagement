@@ -1,6 +1,8 @@
 package com.temelt.schmgt.web.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,10 +14,11 @@ import org.springframework.stereotype.Controller;
 import com.temelt.schmgt.web.data.repository.GelirMuhasebeRepository;
 import com.temelt.schmgt.web.entity.muhasebe.Gelir;
 
+
 @Controller("gelirController")
 @Scope("session")
 public class GelirController implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -27,20 +30,30 @@ public class GelirController implements Serializable {
 	@PostConstruct
 	private void init() {
 		gelirList = gelirRepository.findAll();
-		gelir =new Gelir();
+		gelir = new Gelir();
 	}
 
 	public void gelirKaydet() {
 		System.out.println("Kullanýcý Kaydettik");
 		gelirRepository.save(gelir);
-		gelir=new Gelir();
+		gelir = new Gelir();
 		gelirList = gelirRepository.findAll();
 	}
-	
+
 	public void gelirSil(Long id) {
 		Gelir k = gelirRepository.findOne(id);
 		gelirRepository.delete(k);
 		gelirList = gelirRepository.findAll();
+	}
+
+	public void giderGuncelle(Long id, String konu, BigDecimal miktar, Date tarih) {
+
+		Gelir g = gelirRepository.findOne(id);
+		g.setKonu(konu);
+		g.setTarih(tarih);
+		g.setMiktar(miktar);
+		gelirRepository.save(g);
+
 	}
 
 	public List<Gelir> getGelirList() {
@@ -59,5 +72,4 @@ public class GelirController implements Serializable {
 		this.gelir = gelir;
 	}
 
-	
 }
