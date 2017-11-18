@@ -1,17 +1,11 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-
-<h:head>
-
-
-</h:head>
-
-<h:body>
-
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/content/layout/template.xhtml">
+	<ui:define name="pageContent" >
 	<h:form>
-
 		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.kullaniciList}"
 		paginator="true"  rows="10"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -50,7 +44,6 @@
 				onclick="PF('dlgKullanici').show();" />
 		</h:panelGrid>
 
-
 		<p:dialog header="Kullanıcı Tanımlama" resizable="false" modal="true"
 			widgetVar="dlgKullanici" id="dlgKullanici" minHeight="40">
 			<p:panelGrid columns="2">
@@ -75,6 +68,5 @@
 		</p:dialog>
 
 	</h:form>
-
-</h:body>
-</html>
+	</ui:define>
+</ui:composition>
