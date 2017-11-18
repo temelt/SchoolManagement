@@ -29,7 +29,7 @@ public class KullaniciController implements Serializable {
 
 	@PostConstruct
 	private void init() {
-		kullaniciList = kullaniciRepository.findAll();
+		kullaniciList = kullaniciRepository.getAllByOrderByIdAsc();
 		kullanici=new Kullanici();
 	}
 
@@ -37,15 +37,19 @@ public class KullaniciController implements Serializable {
 		System.out.println("Kullanýcý Kaydettik");
 		kullaniciRepository.save(kullanici);
 		kullanici=new Kullanici();
-		kullaniciList = kullaniciRepository.findAll();
+		kullaniciList = kullaniciRepository.getAllByOrderByIdAsc();
 	}
 	
 	public void kullaniciSil(Long id) {
 		Kullanici k = kullaniciRepository.findOne(id);
 		kullaniciRepository.delete(k);
-		kullaniciList = kullaniciRepository.findAll();
+		kullaniciList = kullaniciRepository.getAllByOrderByIdAsc();
 	}
 
+	public void kullaniciGuncelle(Long id) {
+		kullanici = kullaniciRepository.findOne(id);
+	}
+	
 	public List<Kullanici> getKullaniciList() {
 		return kullaniciList;
 	}

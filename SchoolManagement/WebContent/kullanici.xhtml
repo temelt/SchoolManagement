@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/content/layout/template.xhtml">
 	<ui:define name="pageContent" >
-	<h:form>
+	<h:form id="frmKullanici">
 		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.kullaniciList}"
 		paginator="true"  rows="10"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -30,7 +30,7 @@
 				<p:commandButton icon="ui-icon-trash" update="tblKullanici" actionListener="#{kullaniciController.kullaniciSil(kul.id)}">
 				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
 				</p:commandButton>
-				<p:commandButton icon="ui-icon-pencil"></p:commandButton>
+				<p:commandButton icon="ui-icon-pencil"  update=":frmKullanici:dlgKullanici" oncomplete="PF('dlgKullanici').show();" actionListener="#{kullaniciController.kullaniciGuncelle(kul.id)}"></p:commandButton>
 				
 				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
