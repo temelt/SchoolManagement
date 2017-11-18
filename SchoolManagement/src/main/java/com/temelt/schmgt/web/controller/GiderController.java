@@ -36,7 +36,7 @@ public class GiderController implements Serializable {
 
 	@PostConstruct
 	private void init() {		
-		giderList=giderRepository.findAll();
+		giderList=giderRepository.getAllByOrderByIdAsc();
 		gider = new Gider();
 	}
 	
@@ -44,25 +44,21 @@ public class GiderController implements Serializable {
 		System.out.println("Gider Kaydettik");
 		giderRepository.save(gider);
 		gider =new Gider();
-		giderList=giderRepository.findAll();
+		giderList=giderRepository.getAllByOrderByIdAsc();
 
 	}
 	
 	public void giderSil(Long id){
 		Gider g=giderRepository.findOne(id);
 		giderRepository.delete(g);
-		giderList=giderRepository.findAll();
+		giderList=giderRepository.getAllByOrderByIdAsc();
 
 	}
 	
-	public void giderGuncelle(Long id,String konu,BigDecimal miktar, Date tarih){
+	public void giderGuncelle(Long id) {
+		gider = giderRepository.findOne(id);
 		
-	    Gider g=	giderRepository.findOne(id);
-	    g.setKonu(konu);
-	    g.setTarih(tarih);
-	    g.setMiktar(miktar);
-	    giderRepository.save(g);
-		
+
 	}
 	
 	public List<Gider> getGiderList() {
