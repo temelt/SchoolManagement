@@ -29,7 +29,7 @@ public class GelirController implements Serializable {
 
 	@PostConstruct
 	private void init() {
-		gelirList = gelirRepository.findAll();
+		gelirList = gelirRepository.getAllByOrderByIdAsc();
 		gelir = new Gelir();
 	}
 
@@ -37,22 +37,18 @@ public class GelirController implements Serializable {
 		System.out.println("Kullanýcý Kaydettik");
 		gelirRepository.save(gelir);
 		gelir = new Gelir();
-		gelirList = gelirRepository.findAll();
+		gelirList = gelirRepository.getAllByOrderByIdAsc();
 	}
 
 	public void gelirSil(Long id) {
 		Gelir k = gelirRepository.findOne(id);
 		gelirRepository.delete(k);
-		gelirList = gelirRepository.findAll();
+		gelirList = gelirRepository.getAllByOrderByIdAsc();
 	}
 
-	public void giderGuncelle(Long id, String konu, BigDecimal miktar, Date tarih) {
-
-		Gelir g = gelirRepository.findOne(id);
-		g.setKonu(konu);
-		g.setTarih(tarih);
-		g.setMiktar(miktar);
-		gelirRepository.save(g);
+	public void gelirGuncelle(Long id) {
+		gelir = gelirRepository.findOne(id);
+		
 
 	}
 
