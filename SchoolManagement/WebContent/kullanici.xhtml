@@ -6,8 +6,15 @@
 	template="/content/layout/template.xhtml">
 	<ui:define name="pageContent" >
 	<h:form id="frmKullanici">
-		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.kullaniciList}"
-		paginator="true"  rows="10"
+	<style>
+	.ui-growl {
+	    z-index: 9999 !important;
+	}
+	</style>
+	<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
+	
+		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.lazyModel}"
+		paginator="true"  rows="10" lazy="true" reflow="true"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="5,10,15">
 			<p:column headerText="Id">
@@ -24,6 +31,10 @@
 
 			<p:column headerText="Kullanıcı Adı">
 				<h:outputText value="#{kul.kullaniciAdi}" />
+			</p:column>
+			
+			<p:column headerText="Üyelik Tarihi">
+				<p:calendar disabled="true" id="date" value="#{kul.uyelikTarihi}"/>
 			</p:column>
 			
 			<p:column headerText="İşlemler" width="100">
@@ -59,6 +70,12 @@
 				
 				<p:outputLabel>Şifre</p:outputLabel>
 				<p:password value="#{kullaniciController.kullanici.sifre}"/>
+				
+				<p:outputLabel>Email</p:outputLabel>
+				<p:inputText id="email" value="#{kullaniciController.kullanici.email}"/>
+				
+				<p:outputLabel>Üyelik Tarihi</p:outputLabel>
+				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{kullaniciController.kullanici.uyelikTarihi}"/>
 
 				<p:commandButton value="İptal" type="button" onclick="PF('dlgKullanici').hide();" />
 
