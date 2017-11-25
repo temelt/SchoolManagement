@@ -12,9 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
-
 import com.temelt.schmgt.web.entity.BaseEntity;
 import com.temelt.schmgt.web.entity.ik.Ogretmen;
 
@@ -25,7 +22,7 @@ public class Grup extends BaseEntity{
     private Long id;
     private String adi;
     private Kurs kurs;
-    private Ogretmen Ogretmen;
+    private Ogretmen ogretmen;
     private int ogrenciSayisi;
     private Salon salon;
     private Date baslamaTarihi;
@@ -64,12 +61,12 @@ public class Grup extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     public Ogretmen getOgretmen() {
-        return Ogretmen;
-    }
-
-    public void setOgretmen(Ogretmen Ogretmen) {
-        this.Ogretmen = Ogretmen;
-    }
+		return ogretmen;
+	}
+    
+    public void setOgretmen(Ogretmen ogretmen) {
+		this.ogretmen = ogretmen;
+	}
 
     @Column(name = "student_count")
     public int getOgrenciSayisi() {
@@ -110,7 +107,7 @@ public class Grup extends BaseEntity{
 
     @Override
     public String toString() {
-        return "Grup{" + "id=" + id + ", adi=" + adi + ", kurs=" + kurs + ", Ogretmen=" + Ogretmen + ", ogrenciSayisi=" + ogrenciSayisi + ", salon=" + salon + ", baslamaTarihi=" + baslamaTarihi + ", bitisTarihi=" + bitisTarihi + '}';
+        return "Grup{" + "id=" + id + ", adi=" + adi + ", kurs=" + kurs + ", Ogretmen=" + ogretmen + ", ogrenciSayisi=" + ogrenciSayisi + ", salon=" + salon + ", baslamaTarihi=" + baslamaTarihi + ", bitisTarihi=" + bitisTarihi + '}';
     }  
     
     

@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/content/layout/template.xhtml">
+	<ui:define name="pageContent" >
+		<h:form id="frmGrup">
+	
+		<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
+	
+		<p:dataTable id="tblGrup" widgetVar="tblGrup" var="grup" value="#{grupController.lazyModel}"
+		paginator="true"  rows="10" lazy="true" 
+        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="5,10,15">
+        
+			<p:column headerText="Id">
+				<h:outputText value="#{grup.id}" />
+			</p:column>
+
+			<p:column headerText="Grup Adı">
+				<h:outputText value="#{grup.adi}" />
+			</p:column>
+
+			<p:column headerText="Kurs Adı">
+				<h:outputText value="#{grup.kurs.adi}" />
+			</p:column>
+
+			<p:column headerText="Öğretmen Adı">
+				<h:outputText value="#{grup.ogretmen.ad}" />
+			</p:column>
+			
+			<p:column headerText="Öğrenci Sayısı">
+				<h:outputText value="#{grup.ogrenciSayisi}" />
+			</p:column>
+			
+			<p:column headerText="Salon Adı">
+				<h:outputText value="#{grup.salon.adi}" />
+			</p:column>
+			
+			<p:column headerText="Başlama Tarihi">
+				<p:calendar disabled="true" value="#{grup.baslamaTarihi}"/>
+			</p:column>
+			
+			<p:column headerText="Bitiş Tarihi">
+				<p:calendar disabled="true" value="#{grup.bitisTarihi}"/>
+			</p:column>			
+		</p:dataTable>
+		
+		<h:panelGrid columns="1" cellpadding="5">
+			<p:commandButton value="Yeni" icon="ui-icon-plus" type="button" onclick="PF('dlgGrup').show();" />
+		</h:panelGrid>
+		
+		<p:dialog header="Grup Tanımlama" resizable="false" modal="true" widgetVar="dlgGrup" id="dlgGrup" minHeight="40">
+			<p:panelGrid columns="2">
+
+				<p:outputLabel>Grup Adı</p:outputLabel>
+				<p:inputText value="#{grupController.grup.adi}"/>
+
+				<p:outputLabel>Salon</p:outputLabel>
+				<p:selectOneMenu value="#{grupController.grup.salon}" effect="fold" converter="#{salonConverter}">
+		            <f:selectItems value="#{grupController.salonList}" var="grp" itemLabel="#{grp.kod}  #{grp.adi}" itemValue="#{grp}" />
+		        </p:selectOneMenu>
+				
+				<p:outputLabel>Başlama Tarihi</p:outputLabel>
+				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{grupController.grup.baslamaTarihi}"/>
+				
+				<p:outputLabel>Bitiş Tarihi</p:outputLabel>
+				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{grupController.grup.bitisTarihi}"/>
+
+				<p:commandButton value="İptal" type="button" onclick="PF('dlgGrup').hide();" />
+
+				<p:commandButton value="Kaydet" actionListener="#{grupController.kaydet}" 
+				update="tblGrup dlgGrup" oncomplete="PF('dlgGrup').hide();" />
+			</p:panelGrid>
+		</p:dialog>
+		
+		</h:form>
+	</ui:define>
+</ui:composition>

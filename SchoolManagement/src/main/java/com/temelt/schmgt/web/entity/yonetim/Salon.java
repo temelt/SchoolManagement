@@ -65,5 +65,15 @@ public class Salon extends BaseEntity{
     public void setKod(String kod) {
         this.kod = kod;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Salon){
+    		if(((Salon)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
 }

@@ -114,9 +114,5 @@ public class Ogretmen extends BaseEntity{
         return  "adi = "+ad+ " soyadı = "+soyad+ " id = "+id;
     }
 
-   
-
-    
-    
-
+  
 }
