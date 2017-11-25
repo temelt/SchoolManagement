@@ -6,11 +6,6 @@
 	template="/content/layout/template.xhtml">
 	<ui:define name="pageContent" >
 	<h:form id="frmKullanici">
-	<style>
-	.ui-growl {
-	    z-index: 9999 !important;
-	}
-	</style>
 	<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
 	
 		<p:dataTable id="tblKullanici" widgetVar="tblKullanici" var="kul" value="#{kullaniciController.lazyModel}"
