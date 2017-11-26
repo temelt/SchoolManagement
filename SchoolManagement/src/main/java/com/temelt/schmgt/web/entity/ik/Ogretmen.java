@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
 
@@ -109,10 +110,24 @@ public class Ogretmen extends BaseEntity{
         this.kayitTarihi = kayitTarihi;
     }
 
+    @Transient
+    public String getAdSoyad() {
+		return this.ad + " " + this.soyad;
+	}
+    
     @Override
     public String toString() {
         return  "adi = "+ad+ " soyadı = "+soyad+ " id = "+id;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Ogretmen){
+    		if(((Ogretmen)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
   
 }

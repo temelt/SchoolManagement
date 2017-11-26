@@ -43,12 +43,16 @@
 			        <p:commandButton value="İptal" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			    </p:confirmDialog>
 			</p:column>
+			
+			<f:facet name="header">
+				Kullanici Listesi
+			</f:facet>
+			<f:facet name="footer">
+				<p:commandButton value="Yeni" icon="ui-icon-plus" actionListener="#{kullaniciController.yeni}"
+				update=":frmKullanici:dlgKullanici" oncomplete="PF('dlgKullanici').show();" />
+			</f:facet>
 		</p:dataTable>
 
-		<h:panelGrid columns="1" cellpadding="5">
-			<p:commandButton value="Yeni" icon="ui-icon-plus" type="button"
-				onclick="PF('dlgKullanici').show();" />
-		</h:panelGrid>
 
 		<p:dialog header="Kullanıcı Tanımlama" resizable="false" modal="true"
 			widgetVar="dlgKullanici" id="dlgKullanici" minHeight="40">
@@ -72,11 +76,13 @@
 				<p:outputLabel>Üyelik Tarihi</p:outputLabel>
 				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{kullaniciController.kullanici.uyelikTarihi}"/>
 
-				<p:commandButton value="İptal" type="button" onclick="PF('dlgKullanici').hide();" />
+			</p:panelGrid>
+			<f:facet name="footer">
+			<p:commandButton value="İptal" type="button" onclick="PF('dlgKullanici').hide();" />
 
 				<p:commandButton value="Kaydet" actionListener="#{kullaniciController.kullaniciKaydet}" 
 				update="tblKullanici dlgKullanici" oncomplete="PF('dlgKullanici').hide();" />
-			</p:panelGrid>
+			</f:facet>
 		</p:dialog>
 
 	</h:form>

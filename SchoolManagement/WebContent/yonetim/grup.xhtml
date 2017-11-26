@@ -10,7 +10,7 @@
 		<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
 	
 		<p:dataTable id="tblGrup" widgetVar="tblGrup" var="grup" value="#{grupController.lazyModel}"
-		paginator="true"  rows="10" lazy="true" 
+		paginator="true"  rows="10" lazy="true"  reflow="true"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="5,10,15">
         
@@ -27,7 +27,7 @@
 			</p:column>
 
 			<p:column headerText="Öğretmen Adı">
-				<h:outputText value="#{grup.ogretmen.ad}" />
+				<h:outputText value="#{grup.ogretmen.adSoyad}" />
 			</p:column>
 			
 			<p:column headerText="Öğrenci Sayısı">
@@ -44,11 +44,23 @@
 			
 			<p:column headerText="Bitiş Tarihi">
 				<p:calendar disabled="true" value="#{grup.bitisTarihi}"/>
-			</p:column>			
+			</p:column>		
+			
+				<p:column headerText="İşlemler" width="100">
+				<p:commandButton icon="ui-icon-trash" update="tblGrup" actionListener="#{grupController.sil(grup.id)}">
+				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
+				</p:commandButton>
+				<p:commandButton icon="ui-icon-pencil"  update=":frmGrup:dlgGrup" oncomplete="PF('dlgGrup').show();" actionListener="#{grupController.guncelle(grup.id)}"></p:commandButton>
+				
+				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+			        <p:commandButton value="İptal" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			    </p:confirmDialog>
+			</p:column>	
 		</p:dataTable>
 		
 		<h:panelGrid columns="1" cellpadding="5">
-			<p:commandButton value="Yeni" icon="ui-icon-plus" type="button" onclick="PF('dlgGrup').show();" />
+			<p:commandButton value="Yeni" icon="ui-icon-plus" update="frmGrup:dlgGrup" actionListener="#{grupController.yeni}" oncomplete="PF('dlgGrup').show();" />
 		</h:panelGrid>
 		
 		<p:dialog header="Grup Tanımlama" resizable="false" modal="true" widgetVar="dlgGrup" id="dlgGrup" minHeight="40">
@@ -56,12 +68,25 @@
 
 				<p:outputLabel>Grup Adı</p:outputLabel>
 				<p:inputText value="#{grupController.grup.adi}"/>
+				
+				<p:outputLabel>Öğrenci Sayısı</p:outputLabel>
+				<p:inputNumber value="#{grupController.grup.ogrenciSayisi}"/>
 
-				<p:outputLabel>Salon</p:outputLabel>
+				<p:outputLabel>Öğretmen</p:outputLabel>
+		        <p:autoComplete value="#{grupController.grup.ogretmen}" completeMethod="#{grupController.ogretmenAcomp}"
+                        var="o" itemLabel="#{o.adSoyad}" itemValue="#{o}" converter="#{ogretmenConverter}" forceSelection="true">
+		        </p:autoComplete>
+		        
+		        <p:outputLabel>Salon</p:outputLabel>
 				<p:selectOneMenu value="#{grupController.grup.salon}" effect="fold" converter="#{salonConverter}">
-		            <f:selectItems value="#{grupController.salonList}" var="grp" itemLabel="#{grp.kod}  #{grp.adi}" itemValue="#{grp}" />
+		            <f:selectItems value="#{grupController.salonList}" var="grp" itemLabel="#{grp.kod} - #{grp.adi}" itemValue="#{grp}" />
 		        </p:selectOneMenu>
 				
+				<p:outputLabel>Kurs</p:outputLabel>
+				<p:selectOneMenu value="#{grupController.grup.kurs}" effect="fold" converter="#{kursConverter}">
+		            <f:selectItems value="#{grupController.kursList}" var="k" itemLabel="#{k.adi}" itemValue="#{k}" />
+		        </p:selectOneMenu>
+		        		        
 				<p:outputLabel>Başlama Tarihi</p:outputLabel>
 				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{grupController.grup.baslamaTarihi}"/>
 				

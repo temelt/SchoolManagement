@@ -19,9 +19,6 @@ import org.springframework.stereotype.Controller;
 import com.temelt.schmgt.web.data.repository.KullaniciRepository;
 import com.temelt.schmgt.web.entity.kullanici.Kullanici;
 
-import lombok.Getter;
-import lombok.Setter;
-
 @Controller("kullaniciController")
 @Scope("session")
 public class KullaniciController implements Serializable {
@@ -34,15 +31,14 @@ public class KullaniciController implements Serializable {
 	@Autowired
 	private KullaniciRepository kullaniciRepository;
 
-	@Getter @Setter
 	private Kullanici kullanici;
-	@Getter
 	private LazyDataModel<Kullanici> lazyModel;
 
 	@PostConstruct
 	private void init() {
 		listele();
 		kullanici=new Kullanici();
+		System.out.println("RUN TT");
 	}
 
 	public void kullaniciKaydet() {
@@ -57,6 +53,10 @@ public class KullaniciController implements Serializable {
 		}
         kullanici=new Kullanici();
         
+	}
+	
+	public void yeni() {
+		kullanici=new Kullanici();
 	}
 	
 	public void kullaniciSil(Long id) {
@@ -91,6 +91,18 @@ public class KullaniciController implements Serializable {
 
 	public void kullaniciGuncelle(Long id) {
 		kullanici = kullaniciRepository.findOne(id);
+	}
+	
+	public Kullanici getKullanici() {
+		return kullanici;
+	}
+	
+	public LazyDataModel<Kullanici> getLazyModel() {
+		return lazyModel;
+	}
+	
+	public void setKullanici(Kullanici kullanici) {
+		this.kullanici = kullanici;
 	}
 	
 }

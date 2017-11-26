@@ -27,7 +27,6 @@ import com.temelt.schmgt.web.entity.yonetim.Kurs;
 public class YoklamaBilgileri extends BaseEntity {
 
     private Long id;
-    private YoklamaFormu yoklamaFormu;
     private Grup grup;
     private Kurs kurs;
 
@@ -42,15 +41,6 @@ public class YoklamaBilgileri extends BaseEntity {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "inspectionForm_id")
-    public YoklamaFormu getYoklamaFormu() {
-        return yoklamaFormu;
-    }
-
-    public void setYoklamaFormu(YoklamaFormu yoklamaFormu) {
-        this.yoklamaFormu = yoklamaFormu;
-    }
 
     @ManyToOne
     @JoinColumn(name = "group_id")
@@ -72,10 +62,6 @@ public class YoklamaBilgileri extends BaseEntity {
         this.kurs = kurs;
     }
 
-    @Override
-    public String toString() {
-        return "YoklamaBilgileri{" + "id=" + id + ", yoklamaFormu=" + yoklamaFormu + ", grup=" + grup + ", kurs=" + kurs + '}';
-    }
-
+  
     
 }

@@ -18,7 +18,6 @@ import javax.persistence.Table;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
@@ -27,7 +26,6 @@ import lombok.EqualsAndHashCode;
  */
 @Entity
 @Table(name = "usr")
-@Data
 @EqualsAndHashCode(callSuper=false)
 public class Kullanici extends BaseEntity{
     @Id
@@ -56,4 +54,70 @@ public class Kullanici extends BaseEntity{
     @Column()
     @Enumerated
     private Rol rol;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getKullaniciAdi() {
+		return kullaniciAdi;
+	}
+
+	public void setKullaniciAdi(String kullaniciAdi) {
+		this.kullaniciAdi = kullaniciAdi;
+	}
+
+	public String getSifre() {
+		return sifre;
+	}
+
+	public void setSifre(String sifre) {
+		this.sifre = sifre;
+	}
+
+	public Date getUyelikTarihi() {
+		return uyelikTarihi;
+	}
+
+	public void setUyelikTarihi(Date uyelikTarihi) {
+		this.uyelikTarihi = uyelikTarihi;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAd() {
+		return ad;
+	}
+
+	public void setAd(String ad) {
+		this.ad = ad;
+	}
+
+	public String getSoyad() {
+		return soyad;
+	}
+
+	public void setSoyad(String soyad) {
+		this.soyad = soyad;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+    
+    
 }

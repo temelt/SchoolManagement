@@ -63,4 +63,13 @@ public class Kurs extends BaseEntity{
         this.fiyat = fiyat;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Kurs){
+    		if(((Kurs)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }
