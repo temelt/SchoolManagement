@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
 import com.temelt.schmgt.web.entity.CinsiyetEnum;
+import com.temelt.schmgt.web.entity.yonetim.Kurs;
 
 /**
  *
@@ -116,6 +117,15 @@ public class Ogrenci extends BaseEntity{
     @Override
     public String toString() {
         return  "adi = "+ad+ " soyadı = "+soyad+ " id = "+id;
+    }
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Ogrenci){
+    		if(((Ogrenci)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
 

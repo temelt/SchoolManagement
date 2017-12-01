@@ -6,9 +6,11 @@
  	template="/content/layout/template.xhtml">
  	<ui:define name="pageContent" >
  	<h:form id="frmMuhasebe">
+ 	
+ 	<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" life="5000" /> 
   
-  		<p:dataTable id="tblMuhasebe" widgetVar="tblMuhasebe" var="gel" value="#{gelirController.gelirList}"
-  		paginator="true"  rows="10"
+  		<p:dataTable id="tblMuhasebe" widgetVar="tblMuhasebe" var="gel" value="#{gelirController.lazyModel}"
+  		paginator="true"  rows="10" lazy="true" reflow="true"
          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
          rowsPerPageTemplate="5,10,15">
  			<p:column headerText="Id">
@@ -22,9 +24,13 @@
  			<p:column headerText="Miktar">
  				<h:outputText value="#{gel.miktar}" />
  			</p:column>
+ 			
+ 			<p:column headerText="Ogrenci Odeme">
+ 				<h:outputText value="#{gel.ogrenciOdeme.id} #{gel.ogrenciOdeme.ogrenci.ad} #{gel.ogrenciOdeme.ogrenci.soyad}"/>
+ 			</p:column>
  
  			<p:column headerText="Tarih">
- 				<h:outputText value="#{gel.tarih}" />
+ 				<p:calendar disabled="true" id="date" value="#{gel.tarih}" />
  			</p:column>
  			
  			<p:column headerText="İşlemler" width="100">
@@ -38,12 +44,17 @@
  			        <p:commandButton value="İptal" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
  			    </p:confirmDialog>
  			</p:column>
+ 			
+ 			<f:facet name="header">
+				Gelir Listesi
+			</f:facet>
+			<f:facet name="footer">
+				<p:commandButton value="Yeni" icon="ui-icon-plus" actionListener="#{gelirController.yenileGelir}"
+				update=":frmMuhasebe:dlgMuhasebe" oncomplete="PF('dlgMuhasebe').show();" />
+			</f:facet>
  		</p:dataTable>
  
- 		<h:panelGrid columns="1" cellpadding="5">
- 			<p:commandButton value="Yeni" icon="ui-icon-plus" type="button"
- 				onclick="PF('dlgMuhasebe').show();" />
- 		</h:panelGrid>
+ 		
  
  
  		<p:dialog header="Gelir Tanımlama" resizable="false" modal="true"
@@ -58,13 +69,22 @@
  				<p:inputText value="#{gelirController.gelir.miktar}"/>
  				
  				<p:outputLabel>Tarih</p:outputLabel>
- 				<p:inputText value="#{gelirController.gelir.tarih}"/>
+				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{gelirController.gelir.tarih}"/>
+				
+		        
+		         <p:outputLabel>Ogrenci Odeme</p:outputLabel>
+				<p:selectOneMenu value="#{gelirController.gelir.ogrenciOdeme}" effect="fold" converter="#{ogrenciOdemeConverter}">
+		            <f:selectItems value="#{gelirController.listeOgrenciOdeme}" var="grp" itemLabel="#{grp.id} #{grp.aciklama}" itemValue="#{grp}" />
+		        </p:selectOneMenu>
  
- 				<p:commandButton value="İptal" type="button" onclick="PF('dlgMuhasebe').hide();" />
- 
- 				<p:commandButton value="Kaydet" actionListener="#{gelirController.gelirKaydet}" 
- 				update="tblMuhasebe dlgMuhasebe" oncomplete="PF('dlgMuhasebe').hide();" />
  			</p:panelGrid>
+ 			<f:facet name="footer">
+				<p:commandButton value="İptal" type="button" onclick="PF('dlgMuhasebe').hide();" />
+
+				<p:commandButton value="Kaydet" actionListener="#{gelirController.gelirKaydet}" 
+ 				update="tblMuhasebe dlgMuhasebe" oncomplete="PF('dlgMuhasebe').hide();" />
+			</f:facet>
+ 			
   		</p:dialog>
   
   	</h:form>

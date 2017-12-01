@@ -21,6 +21,9 @@ import javax.persistence.Table;
 import com.temelt.schmgt.web.entity.BaseEntity;
 import com.temelt.schmgt.web.entity.demirbas.Envanter;
 import com.temelt.schmgt.web.entity.ogrenciisleri.OgrenciOdeme;
+import com.temelt.schmgt.web.entity.yonetim.Kurs;
+
+
 
 /**
  *
@@ -48,7 +51,7 @@ public class Gelir extends BaseEntity{
         this.id = id;
     }
 
-    @Column(name = "subject",length = 100)
+    @Column(name = "subject",length = 100,nullable=false)
     public String getKonu() {
         return konu;
     }
@@ -56,7 +59,8 @@ public class Gelir extends BaseEntity{
     public void setKonu(String konu) {
         this.konu = konu;
     }
-
+    
+    
     @Column(name = "quantity",precision = 14,scale = 2)
     public BigDecimal getMiktar() {
         return miktar;
@@ -99,7 +103,15 @@ public class Gelir extends BaseEntity{
     public String toString() {
         return  "Gelir id = "+id;
     }
-    
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Gelir){
+    		if(((Gelir)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 
     
        

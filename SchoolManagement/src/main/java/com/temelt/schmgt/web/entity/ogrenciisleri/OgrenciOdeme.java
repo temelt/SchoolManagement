@@ -19,6 +19,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
+import com.temelt.schmgt.web.entity.yonetim.Kurs;
 
 /**
  *
@@ -85,6 +86,15 @@ public class OgrenciOdeme extends BaseEntity{
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof OgrenciOdeme){
+    		if(((OgrenciOdeme)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
     }
  
     
