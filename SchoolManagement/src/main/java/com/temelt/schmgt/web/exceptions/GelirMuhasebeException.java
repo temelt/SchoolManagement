@@ -1,4 +1,4 @@
-package com.temelt.schmgt.we.exceptions;
+package com.temelt.schmgt.web.exceptions;
 
 public class GelirMuhasebeException extends Exception{
     String message=" Konu Bos !!!!";

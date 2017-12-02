@@ -18,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 
-import com.temelt.schmgt.we.exceptions.GelirMuhasebeException;
 import com.temelt.schmgt.web.data.repository.GelirMuhasebeRepository;
 import com.temelt.schmgt.web.data.repository.OgrenciOdemeRepository;
 import com.temelt.schmgt.web.data.repository.OgrenciRepository;
@@ -26,6 +25,7 @@ import com.temelt.schmgt.web.entity.ik.Ogretmen;
 import com.temelt.schmgt.web.entity.muhasebe.Gelir;
 import com.temelt.schmgt.web.entity.ogrenciisleri.Ogrenci;
 import com.temelt.schmgt.web.entity.ogrenciisleri.OgrenciOdeme;
+import com.temelt.schmgt.web.exceptions.GelirMuhasebeException;
 
 
 
