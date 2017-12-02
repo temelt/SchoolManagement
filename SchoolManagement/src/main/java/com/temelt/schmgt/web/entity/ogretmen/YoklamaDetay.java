@@ -20,23 +20,22 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
-import com.temelt.schmgt.web.entity.yonetim.Grup;
+import com.temelt.schmgt.web.entity.ogrenciisleri.Ogrenci;
 
 /**
  *
  * @author vektorel
  */
-@Entity
-@Table(name = "attendance")
-public class YoklamaFormu extends BaseEntity {
+@Entity	
+@Table(name = "attendance_detail")
+public class YoklamaDetay extends BaseEntity {
 
 	private Long id;
 	private String yoklamaAciklama;
 	private String islenenKonu;
-	private Grup grup;
-	private YoklamaBilgileri yoklamaBilgileri;
+	private Yoklama yoklama;
+	private Ogrenci ogrenci;
 	private Date yoklamaTarihi;
-	private Date dersTarihi;
 
 	@Id
 	@SequenceGenerator(name = "seq_attendance", allocationSize = 1, sequenceName = "seq_attendance")
@@ -49,15 +48,6 @@ public class YoklamaFormu extends BaseEntity {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "group_id")
-	public Grup getGrup() {
-		return grup;
-	}
-
-	public void setGrup(Grup grup) {
-		this.grup = grup;
-	}
 
 	@Column(name = "inspection_description", length = 100)
 	public String getYoklamaAciklama() {
@@ -77,15 +67,6 @@ public class YoklamaFormu extends BaseEntity {
 		this.islenenKonu = islenenKonu;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "inspection_info_id")
-	public YoklamaBilgileri getYoklamaBilgileri() {
-		return yoklamaBilgileri;
-	}
-
-	public void setYoklamaBilgileri(YoklamaBilgileri yoklamaBilgileri) {
-		this.yoklamaBilgileri = yoklamaBilgileri;
-	}
 
 	@Column(name = "inspection_date")
 	@Temporal(TemporalType.DATE)
@@ -97,14 +78,24 @@ public class YoklamaFormu extends BaseEntity {
 		this.yoklamaTarihi = yoklamaTarihi;
 	}
 
-	@Column(name = "course_date")
-	@Temporal(TemporalType.DATE)
-	public Date getDersTarihi() {
-		return dersTarihi;
+	@ManyToOne
+	@JoinColumn(name = "attendence_id")
+	public Yoklama getYoklama() {
+		return yoklama;
 	}
 
-	public void setDersTarihi(Date dersTarihi) {
-		this.dersTarihi = dersTarihi;
+	public void setYoklama(Yoklama yoklama) {
+		this.yoklama = yoklama;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "student_id")
+	public Ogrenci getOgrenci() {
+		return ogrenci;
 	}
 
+	public void setOgrenci(Ogrenci ogrenci) {
+		this.ogrenci = ogrenci;
+	}
+	
 }

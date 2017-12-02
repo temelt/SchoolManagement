@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 
 import com.temelt.schmgt.web.data.repository.KullaniciRepository;
 import com.temelt.schmgt.web.entity.kullanici.Kullanici;
+import com.temelt.schmgt.web.service.KullaniciService;
 
 @Controller("kullaniciController")
 @Scope("session")
@@ -30,6 +31,9 @@ public class KullaniciController implements Serializable {
 
 	@Autowired
 	private KullaniciRepository kullaniciRepository;
+	
+	@Autowired
+	private KullaniciService kullaniciService;
 
 	private Kullanici kullanici;
 	private LazyDataModel<Kullanici> lazyModel;
@@ -45,7 +49,7 @@ public class KullaniciController implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
 			System.out.println("Kullanýcý Kaydettik");
-			kullaniciRepository.save(kullanici);
+			kullaniciService.save(kullanici);
 			listele();
 	        context.addMessage(null, new FacesMessage("KAYIT",  "Kayýt Eklendi" ) );
 		} catch (Exception e) {

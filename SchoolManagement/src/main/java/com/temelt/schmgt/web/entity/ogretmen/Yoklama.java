@@ -16,19 +16,17 @@ import javax.persistence.Table;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
 import com.temelt.schmgt.web.entity.yonetim.Grup;
-import com.temelt.schmgt.web.entity.yonetim.Kurs;
 
 /**
  *
  * @author vektorel
  */
 @Entity
-@Table(name = "student_attendance")
-public class YoklamaBilgileri extends BaseEntity {
+@Table(name = "sch_attendance")
+public class Yoklama extends BaseEntity {
 
     private Long id;
-    private Grup grup;
-    private Kurs kurs;
+    private Grup grup;	
 
     @Id
     @SequenceGenerator(name = "seq_student_attendance", allocationSize = 1, sequenceName = "seq_student_attendance")
@@ -51,17 +49,5 @@ public class YoklamaBilgileri extends BaseEntity {
     public void setGrup(Grup grup) {
         this.grup = grup;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    public Kurs getKurs() {
-        return kurs;
-    }
-
-    public void setKurs(Kurs kurs) {
-        this.kurs = kurs;
-    }
-
-  
     
 }

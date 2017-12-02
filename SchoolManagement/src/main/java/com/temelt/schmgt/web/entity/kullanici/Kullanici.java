@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.temelt.schmgt.web.entity.BaseEntity;
 
@@ -26,34 +27,34 @@ import lombok.EqualsAndHashCode;
  */
 @Entity
 @Table(name = "usr")
-@EqualsAndHashCode(callSuper=false)
-public class Kullanici extends BaseEntity{
-    @Id
-    @SequenceGenerator(name = "seq_usr", allocationSize = 1, sequenceName = "seq_usr")
-    @GeneratedValue(generator = "seq_usr", strategy = GenerationType.SEQUENCE)
-    private Long id;
-    
-    @Column(name = "usrname", length = 30, unique = true)
-    private String kullaniciAdi;
-    
-    @Column(name = "pwd", length = 30)
-    private String sifre;
-    
-    @Column(name = "membership_date")
-    private Date uyelikTarihi;
-    
-    @Column(name = "email", length = 100)
-    private String email;
-    
-    @Column(name = "name", length = 30)
-    private String ad;
-    
-    @Column(name = "surname", length = 30)
-    private String soyad;
-    
-    @Column()
-    @Enumerated
-    private Rol rol;
+@EqualsAndHashCode(callSuper = false)
+public class Kullanici extends BaseEntity {
+	@Id
+	@SequenceGenerator(name = "seq_usr", allocationSize = 1, sequenceName = "seq_usr")
+	@GeneratedValue(generator = "seq_usr", strategy = GenerationType.SEQUENCE)
+	private Long id;
+
+	@Column(name = "usrname", length = 30, unique = true)
+	private String kullaniciAdi;
+
+	@Column(name = "pwd", length = 300)
+	private String sifre;
+
+	@Column(name = "membership_date")
+	private Date uyelikTarihi;
+
+	@Column(name = "email", length = 100)
+	private String email;
+
+	@Column(name = "name", length = 30)
+	private String ad;
+
+	@Column(name = "surname", length = 30)
+	private String soyad;
+
+	@Column()
+	@Enumerated
+	private Rol rol;
 
 	public Long getId() {
 		return id;
@@ -118,6 +119,10 @@ public class Kullanici extends BaseEntity{
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-    
-    
+
+	@Transient
+	public String getAdSoyad() {
+		return this.ad + " " + this.soyad;
+	}
+
 }
