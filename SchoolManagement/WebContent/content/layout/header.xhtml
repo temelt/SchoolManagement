@@ -44,22 +44,12 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li class="user-header"><h:graphicImage library="img" name="user2-160x160.jpg" class="img-circle" alt="User Image" />
-								<p> Alexander Pierce <small>Member since Nov. 2017</small> </p>
+								<p> #{sessionController.user.adSoyad} <small>Member since Nov. 2017</small> </p>
 							</li>
-							<li class="user-body">
-								<div class="col-xs-4 text-center">
-									<a href="#">Followers</a>
-								</div>
-								<div class="col-xs-4 text-center">
-									<a href="#">Sales</a>
-								</div>
-								<div class="col-xs-4 text-center">
-									<a href="#">Friends</a>
-								</div>
-							</li>
+				
 							<li class="user-footer">
 								<div class="pull-left">
-									<a href="#" class="btn btn-default btn-flat">Profile</a>
+									<a href="#{request.contextPath}/secure/profile.xhtml" class="btn btn-default btn-flat">Profile</a>
 								</div>
 								<div class="pull-right">
 									<a href="#{request.contextPath}/j_spring_security_logout" class="btn btn-default btn-flat">Sign out</a>

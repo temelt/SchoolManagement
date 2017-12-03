@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/content/layout/template.xhtml">
+	<ui:define name="pageContent" >
+	<h:form id="frmProfile">
+	
+		<p:panelGrid columns="2">
+
+				<p:outputLabel>Kullanıcı Adı</p:outputLabel>
+				<p:inputText disabled="true" value="#{sessionController.user.kullaniciAdi}"/>
+
+				<p:outputLabel>Adı</p:outputLabel>
+				<p:inputText disabled="true" value="#{sessionController.user.ad}"/>
+
+				<p:outputLabel>Soyadı</p:outputLabel>
+				<p:inputText disabled="true" value="#{sessionController.user.soyad}"/>
+								
+				<p:outputLabel>Email</p:outputLabel>
+				<p:inputText id="email" disabled="true" value="#{sessionController.user.email}"/>
+				
+				<p:outputLabel>Üyelik Tarihi</p:outputLabel>
+				<p:calendar locale="tr" disabled="true" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{sessionController.user.uyelikTarihi}"/>
+
+			</p:panelGrid>
+	
+	</h:form>
+	</ui:define>
+</ui:composition>
