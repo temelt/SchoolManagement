@@ -10,16 +10,17 @@
 	<http pattern="/login.xhtml" security="none"/>
 
 	<http use-expressions="true">	
-		<intercept-url pattern="/secure/**" access="isAuthenticated()" />
+		<intercept-url pattern="/secure/*" access="hasRole('USER')" />
+		<intercept-url pattern="/secure/yonetim/**" access="hasRole('ADMIN')" />
+		
 		<form-login default-target-url="/secure/home.xhtml" login-page="/login.xhtml"  />
 		<access-denied-handler error-page="/accessDenied.xhtml" /> 
-		<logout logout-url="/j_spring_security_logout" invalidate-session="true"  logout-success-url="/login.xhtml"/>		
+		<logout invalidate-session="true"  logout-success-url="/login.xhtml"/>		
 	</http>
-                            
 
     <authentication-manager>
 	  <authentication-provider user-service-ref="userServiceImpl">
-	  <password-encoder hash="md5"></password-encoder>
+	 	 <password-encoder hash="md5"></password-encoder>
 	  </authentication-provider>
 	</authentication-manager>
 

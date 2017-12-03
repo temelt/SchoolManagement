@@ -22,13 +22,15 @@ public class UserServiceImpl implements UserDetailsService{
 	@Autowired
 	private KullaniciRepository kullaniciRepository;
 	
-	
+		
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Kullanici kullanici = kullaniciRepository.getByKullaniciAdi(username);
 		List<GrantedAuthority> authorities =new ArrayList<>();
 		GrantedAuthorityImpl authority=new GrantedAuthorityImpl("USER");
+		GrantedAuthorityImpl authority2=new GrantedAuthorityImpl(kullanici.getRol().name());
 		authorities.add(authority);
+		authorities.add(authority2);
 		User user =new User(kullanici.getKullaniciAdi(), kullanici.getSifre(),true,true,true,true,authorities );
 		return user;
 	}
