@@ -10,10 +10,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.temelt.schmgt.web.data.repository.IkOgretmenRepository;
-import com.temelt.schmgt.web.data.repository.KullaniciRepository;
 import com.temelt.schmgt.web.entity.ik.Ogretmen;
-import com.temelt.schmgt.web.entity.kullanici.Kullanici;
-@Controller("ikogretmenController")
+
+@Controller("ikOgretmenController")
 @Scope("session")
 public class IkOgretmenController  implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,12 +20,12 @@ public class IkOgretmenController  implements Serializable{
 	@Autowired
 	private IkOgretmenRepository ikogretmenRepository;
 
-	private List<Ogretmen> OgretmenList;
+	private List<Ogretmen> ogretmenList;
 	private Ogretmen ogretmen;
 
 	@PostConstruct
 	private void init() {
-		OgretmenList = ikogretmenRepository.findAll();
+		ogretmenList = ikogretmenRepository.findAll();
 		ogretmen=new Ogretmen();
 	}
 
@@ -34,21 +33,21 @@ public class IkOgretmenController  implements Serializable{
 		System.out.println("Kullanýcý Kaydettik");
 		ikogretmenRepository.save(ogretmen);
 		ogretmen=new Ogretmen();
-		OgretmenList = ikogretmenRepository.findAll();
+		ogretmenList = ikogretmenRepository.findAll();
 	}
 	
 	public void OgretmenSil(Long id) {
 		Ogretmen k = ikogretmenRepository.findOne(id);
 		ikogretmenRepository.delete(k);
-		OgretmenList = ikogretmenRepository.findAll();
+		ogretmenList = ikogretmenRepository.findAll();
 	}
 
 	public List<Ogretmen> getOgretmenList() {
-		return OgretmenList;
+		return ogretmenList;
 	}
 
 	public void setOgretmenList(List<Ogretmen> ogretmenList) {
-		OgretmenList = ogretmenList;
+		ogretmenList = ogretmenList;
 	}
 
 	public Ogretmen getOgretmen() {

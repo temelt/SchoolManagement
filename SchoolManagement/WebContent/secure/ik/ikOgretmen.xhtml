@@ -6,9 +6,9 @@
 	template="/content/layout/template.xhtml">
 	<ui:define name="pageContent" >
 
-	<h:form>
+	<h:form id="frmikOgretmen">
 
-		<p:dataTable id="tblOgretmen" widgetVar="tblOgretmen" var="kul" value="#{ikOgretmenController.OgretmenList}"
+		<p:dataTable id="tblOgretmen" widgetVar="tblOgretmen" var="kul" value="#{ikOgretmenController.ogretmenList}"
 		paginator="true"  rows="10"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="5,10,15">
@@ -42,7 +42,7 @@
 			</p:column>
 			
 			<p:column headerText="İşlemler" width="100">
-				<p:commandButton icon="ui-icon-trash" update="tblOgretmen" actionListener="#{IkOgretmenController.OgretmenSil(kul.id)}">
+				<p:commandButton icon="ui-icon-trash" update="tblOgretmen" actionListener="#{ikOgretmenController.OgretmenSil(kul.id)}">
 				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
 				</p:commandButton>
 				<p:commandButton icon="ui-icon-pencil"></p:commandButton>
@@ -61,34 +61,31 @@
 
 
 		<p:dialog header="Kullanıcı Tanımlama" resizable="false" modal="true"
-			widgetVar="dlgOgretmen" id="dlgOgretmeni" minHeight="40">
+			widgetVar="dlgOgretmen" id="dlgOgretmen" minHeight="40">
 			<p:panelGrid columns="2">
-
-			
-
 				<p:outputLabel>Adı</p:outputLabel>
-				<p:inputText value="#{ikogretmenController.ogretmen.ad}"/>
+				<p:inputText value="#{ikOgretmenController.ogretmen.ad}"/>
 
 				<p:outputLabel>Soyadı</p:outputLabel>
-				<p:inputText value="#{ikogretmenController.ogretmen.soyad}"/>
+				<p:inputText value="#{ikOgretmenController.ogretmen.soyad}"/>
 				
 				<p:outputLabel>Adres</p:outputLabel>
-				<p:password value="#{ikogretmenController.ogretmen.adres}"/>
+				<p:inputText value="#{ikOgretmenController.ogretmen.adres}"/>
 				
 				<p:outputLabel>Mail</p:outputLabel>
-				<p:password value="#{ikogretmenController.ogretmen.mail}"/>
+				<p:inputText value="#{ikOgretmenController.ogretmen.mail}"/>
 				<p:outputLabel>Tel</p:outputLabel>
-				<p:password value="#{ikogretmenController.ogretmen.tel}"/>
+				<p:inputText value="#{ikOgretmenController.ogretmen.tel}"/>
 				<p:outputLabel>Ucret</p:outputLabel>
-				<p:password value="#{ikogretmenController.ogretmen.ucret}"/>
+				<p:inputText value="#{ikOgretmenController.ogretmen.ucret}"/>
 				<p:outputLabel>KayitTarihi</p:outputLabel>
-				<p:password value="#{ikogretmenController.ogretmen.kayitTarihi}"/>
+				<p:calendar value ="#{ikOgretmenController.ogretmen.kayitTarihi}"/>
 				
 
 				<p:commandButton value="İptal" type="button" onclick="PF('dlgOgretmen').hide();" />
 
-				<p:commandButton value="Kaydet" actionListener="#{ikogretmenController.ogretmenKaydet}" 
-				update="tblOgretmen dlgogretmen" oncomplete="PF('dlgOgretmen').hide();" />
+				<p:commandButton value="Kaydet" actionListener="#{ikOgretmenController.OgretmenKaydet}" 
+				update="tblOgretmen dlgOgretmen" oncomplete="PF('dlgOgretmen').hide();" />
 			</p:panelGrid>
 		</p:dialog>
 
