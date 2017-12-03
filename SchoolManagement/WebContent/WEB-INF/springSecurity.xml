@@ -13,7 +13,7 @@
 		<intercept-url pattern="/secure/*" access="hasRole('USER')" />
 		<intercept-url pattern="/secure/yonetim/**" access="hasRole('ADMIN')" />
 		
-		<form-login default-target-url="/secure/home.xhtml" login-page="/login.xhtml"  />
+		<form-login default-target-url="/secure/index.xhtml" login-page="/login.xhtml"  />
 		<access-denied-handler error-page="/accessDenied.xhtml" /> 
 		<logout invalidate-session="true"  logout-success-url="/login.xhtml"/>		
 	</http>
