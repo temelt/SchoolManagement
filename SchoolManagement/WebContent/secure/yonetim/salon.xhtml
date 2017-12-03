@@ -1,17 +1,95 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/content/layout/template.xhtml">
+	<ui:define name="pageContent">
 
-<h:head>
-</h:head>
+		<h:form id="frmSalon">
+			<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"
+				life="5000" />
 
 
-<h:body>
-	<h:form>
+			<p:dataTable id="tblSalon" widgetVar="tblSalon" var="salon"
+				value="#{salonController.lazyModel}" paginator="true"
+				rows="10" lazy="true" reflow="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Id">
+					<h:outputText value="#{salon.id}" />
+				</p:column>
+
+				<p:column headerText="Ad">
+					<h:outputText value="#{salon.adi}" />
+				</p:column>
+
+				<p:column headerText="Kodu">
+					<h:outputText value="#{salon.kod}" />
+				</p:column>
+
+				<p:column headerText="Kapasitesi">
+					<h:outputText value="#{salon.kapasite}" />
+				</p:column>
+
+				<p:column headerText="İşlemler" width="100">
+					<p:commandButton icon="ui-icon-trash" update="tblSalon"
+						actionListener="#{salonController.salonSil(salon.id)}">
+						<p:confirm header="Silme Onay"
+							message="Kaydı Silmek İstediğinizden emin misiniz?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" update=":frmSalon:dlgSalon"
+						oncomplete="PF('dlgSalon').show();"
+						actionListener="#{salonController.SalonGuncelle(salon.id)}"></p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Evet" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="İptal" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</p:column>
 
 
-	</h:form>
-</h:body>
+				<f:facet name="header">
+				Salon Listesi
+			</f:facet>
+				<f:facet name="footer">
+					<p:commandButton value="Yeni" icon="ui-icon-plus"
+						actionListener="#{salonController.yeni}"
+						update=":frmSalon:dlgSalon"
+						oncomplete="PF('dlgSalon').show();" />
+				</f:facet>
 
-</html>
+
+
+			</p:dataTable>
+			
+			<p:dialog header="Salon Tanımlama" resizable="false" modal="true"
+			widgetVar="dlgSalon" id="dlgSalon" minHeight="40">
+			<p:panelGrid columns="2">
+
+				<p:outputLabel>Adı</p:outputLabel>
+				<p:inputText value="#{salonController.salon.adi}"/>
+
+				<p:outputLabel>Kodu</p:outputLabel>
+				<p:inputText value="#{salonController.salon.kod}"/>
+				
+				<p:outputLabel>Kapasite</p:outputLabel>
+				<p:inputText value="#{salonController.salon.kapasite}"/>
+				
+			</p:panelGrid>
+			<f:facet name="footer">
+			<p:commandButton value="İptal" type="button" onclick="PF('dlgSalon').hide();" />
+
+				<p:commandButton value="Kaydet" actionListener="#{salonController.salonKaydet}" 
+				update="tblSalon dlgSalon" oncomplete="PF('dlgSalon').hide();" />
+			</f:facet>
+		</p:dialog>
+
+		</h:form>
+
+		</ui:define>
+		
+		</ui:composition>
