@@ -61,7 +61,7 @@
 
 
 		<p:dialog header="Kullanıcı Tanımlama" resizable="false" modal="true"
-			widgetVar="dlgPersonel" id="dlgOgretmen" minHeight="40">
+			widgetVar="dlgPersonel" id="dlgPersonel" minHeight="40">
 			<p:panelGrid columns="2">
 				<p:outputLabel>Adı</p:outputLabel>
 				<p:inputText value="#{ikPersomnelController.personel.ad}"/>
@@ -85,7 +85,7 @@
 				<p:commandButton value="İptal" type="button" onclick="PF('dlgPersonel').hide();" />
 
 				<p:commandButton value="Kaydet" actionListener="#{ikPersonelController.personelKaydet}" 
-				update="tbPersonel dlgPersonel" oncomplete="PF('dlgPersonel').hide();" />
+				update="tblPersonel dlgPersonel" oncomplete="PF('dlgPersonel').hide();" />
 			</p:panelGrid>
 		</p:dialog>
 
