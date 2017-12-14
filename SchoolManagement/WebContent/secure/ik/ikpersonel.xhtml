@@ -8,7 +8,7 @@
 
 	<h:form id="frmikPersonel">
 
-		<p:dataTable id="tblpersonel" widgetVar="tblpersonel" var="per" value="#{ikPersonelController.personelList}"
+		<p:dataTable id="tblPersonel" widgetVar="tblPersonel" var="per" value="#{ikPersonelController.personelList}"
 		paginator="true"  rows="10"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="5,10,15">
@@ -21,7 +21,7 @@
 			</p:column>
 
 			<p:column headerText="Soyad">
-				<h:outputText value="#{kul.soyad}" />
+				<h:outputText value="#{per.soyad}" />
 			</p:column>
 
 			<p:column headerText="Adres">
@@ -31,19 +31,22 @@
 			<p:column headerText="Mail">
 				<h:outputText value="#{per.mail}" />
 			</p:column>
+			
 			<p:column headerText="Tel">
 				<h:outputText value="#{per.tel}" />
 			</p:column>
+			
 			<p:column headerText="Ucret">
 				<h:outputText value="#{per.ucret}" />
 			</p:column>
-			<p:column headerText="Tarih">
+			
+			<p:column headerText="Başlama Tarihi">
 				<h:outputText value="#{per.baslamaTarihi}" />
 			</p:column>
 			
 			<p:column headerText="İşlemler" width="100">
-				<p:commandButton icon="ui-icon-trash" update="tblPersonel" actionListener="#{ikPersonel.PersonelSil(per.id)}">
-				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
+				<p:commandButton icon="ui-icon-trash" update="tblPersonel" actionListener="#{ikPersonelController.PersonelSil(per.id)}">
+				 <p:confirm header="Silme Onayı" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
 				</p:commandButton>
 				<p:commandButton icon="ui-icon-pencil"></p:commandButton>
 				
@@ -64,27 +67,30 @@
 			widgetVar="dlgPersonel" id="dlgPersonel" minHeight="40">
 			<p:panelGrid columns="2">
 				<p:outputLabel>Adı</p:outputLabel>
-				<p:inputText value="#{ikPersomnelController.personel.ad}"/>
+				<p:inputText value="#{ikPersonelController.personel.ad}"/>
 
 				<p:outputLabel>Soyadı</p:outputLabel>
-				<p:inputText value="#{ikPersomnelController.personel.soyad}"/>
+				<p:inputText value="#{ikPersonelController.personel.soyad}"/>
 				
 				<p:outputLabel>Adres</p:outputLabel>
-				<p:inputText value="#{ikPersomnelController.personel.adres}"/>
+				<p:inputText value="#{ikPersonelController.personel.adres}"/>
 				
 				<p:outputLabel>Mail</p:outputLabel>
-				<p:inputText value="#{ikPersomnelController.personel.mail}"/>
+				<p:inputText value="#{ikPersonelController.personel.mail}"/>
+				
 				<p:outputLabel>Tel</p:outputLabel>
-				<p:inputText value="#{ikPersomnelController.personel.tel}"/>
+				<p:inputText value="#{ikPersonelController.personel.tel}"/>
+				
 				<p:outputLabel>Ucret</p:outputLabel>
-				<p:inputText value="#{ikPersomnelController.personel.ucret}"/>
-				<p:outputLabel>KayitTarihi</p:outputLabel>
-				<p:calendar value ="#{ikPersomnelController.personel.baslamaTarihi}"/>
+				<p:inputText value="#{ikPersonelController.personel.ucret}"/>
+				
+				<p:outputLabel>Başlama Tarihi</p:outputLabel>
+				<p:calendar value ="#{ikPersonelController.personel.baslamaTarihi}"/>
 				
 
 				<p:commandButton value="İptal" type="button" onclick="PF('dlgPersonel').hide();" />
 
-				<p:commandButton value="Kaydet" actionListener="#{ikPersonelController.personelKaydet}" 
+				<p:commandButton value="Kaydet" actionListener="#{ikPersonelController.PersonelKaydet}" 
 				update="tblPersonel dlgPersonel" oncomplete="PF('dlgPersonel').hide();" />
 			</p:panelGrid>
 		</p:dialog>

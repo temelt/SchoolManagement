@@ -8,41 +8,41 @@
 
 	<h:form id="frmikOgretmen">
 
-		<p:dataTable id="tblOgretmen" widgetVar="tblOgretmen" var="kul" value="#{ikOgretmenController.ogretmenList}"
+		<p:dataTable id="tblOgretmen" widgetVar="tblOgretmen" var="ogr" value="#{ikOgretmenController.ogretmenList}"
 		paginator="true"  rows="10"
         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         rowsPerPageTemplate="5,10,15">
 			<p:column headerText="Id">
-				<h:outputText value="#{kul.id}" />
+				<h:outputText value="#{ogr.id}" />
 			</p:column>
 
 			<p:column headerText="Ad">
-				<h:outputText value="#{kul.ad}" />
+				<h:outputText value="#{ogr.ad}" />
 			</p:column>
 
 			<p:column headerText="Soyad">
-				<h:outputText value="#{kul.soyad}" />
+				<h:outputText value="#{ogr.soyad}" />
 			</p:column>
 
 			<p:column headerText="Adres">
-				<h:outputText value="#{kul.adres}" />
+				<h:outputText value="#{ogr.adres}" />
 			</p:column>
 			
 			<p:column headerText="Mail">
-				<h:outputText value="#{kul.mail}" />
+				<h:outputText value="#{ogr.mail}" />
 			</p:column>
 			<p:column headerText="Tel">
-				<h:outputText value="#{kul.tel}" />
+				<h:outputText value="#{ogr.tel}" />
 			</p:column>
 			<p:column headerText="Ucret">
-				<h:outputText value="#{kul.ucret}" />
+				<h:outputText value="#{ogr.ucret}" />
 			</p:column>
-			<p:column headerText="Tarih">
-				<h:outputText value="#{kul.kayitTarihi}" />
+			<p:column headerText="Kayıt Tarihi">
+				<h:outputText value="#{ogr.kayitTarihi}" />
 			</p:column>
 			
 			<p:column headerText="İşlemler" width="100">
-				<p:commandButton icon="ui-icon-trash" update="tblOgretmen" actionListener="#{ikOgretmenController.OgretmenSil(kul.id)}">
+				<p:commandButton icon="ui-icon-trash" update="tblOgretmen" actionListener="#{ikOgretmenController.OgretmenSil(ogr.id)}">
 				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
 				</p:commandButton>
 				<p:commandButton icon="ui-icon-pencil"></p:commandButton>

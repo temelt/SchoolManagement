@@ -13,10 +13,10 @@ import com.temelt.schmgt.web.data.repository.IkPersonelRepository;
 import com.temelt.schmgt.web.entity.ik.Personel;
 
 
-@Controller("ikPesonelController")
+@Controller("ikPersonelController")
 @Scope("session")
 public class IkPersonelController implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 13423423423L;
 	@Autowired
 	private IkPersonelRepository ikPersonelRepository;  
 
@@ -26,19 +26,19 @@ public class IkPersonelController implements Serializable {
 	@PostConstruct
 	private void init() {
 		personelList = ikPersonelRepository.findAll();
-		Personel personel;
+		personel=new Personel();
 	}
 
 	public void PersonelKaydet() {
-		System.out.println("Kullanýcý Kaydettik");
-		ikPersonelRepository.save(personelList);
+		System.out.println("Personeli Kaydettik");
+		ikPersonelRepository.save(personel);
 		personel= new Personel();
 		personelList =ikPersonelRepository.findAll();
 	}
 	
 	public void PersonelSil(Long id) {
-		Personel k = ikPersonelRepository.findOne(id);
-		ikPersonelRepository.delete(k);
+		Personel p = ikPersonelRepository.findOne(id);
+		ikPersonelRepository.delete(p);
 		personelList = ikPersonelRepository.findAll();
 	}
 

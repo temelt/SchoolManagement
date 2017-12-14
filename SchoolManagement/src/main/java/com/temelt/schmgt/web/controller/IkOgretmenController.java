@@ -30,15 +30,15 @@ public class IkOgretmenController  implements Serializable{
 	}
 
 	public void OgretmenKaydet() {
-		System.out.println("Kullanýcý Kaydettik");
+		System.out.println("Öðretmeni Kaydettik");
 		ikogretmenRepository.save(ogretmen);
 		ogretmen=new Ogretmen();
 		ogretmenList = ikogretmenRepository.findAll();
 	}
 	
 	public void OgretmenSil(Long id) {
-		Ogretmen k = ikogretmenRepository.findOne(id);
-		ikogretmenRepository.delete(k);
+		Ogretmen o = ikogretmenRepository.findOne(id);
+		ikogretmenRepository.delete(o);
 		ogretmenList = ikogretmenRepository.findAll();
 	}
 
