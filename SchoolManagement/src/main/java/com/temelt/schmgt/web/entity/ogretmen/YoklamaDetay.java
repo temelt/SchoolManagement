@@ -48,7 +48,6 @@ public class YoklamaDetay extends BaseEntity {
 		this.id = id;
 	}
 
-
 	@Column(name = "inspection_description", length = 100)
 	public String getYoklamaAciklama() {
 		return yoklamaAciklama;
@@ -66,7 +65,6 @@ public class YoklamaDetay extends BaseEntity {
 	public void setIslenenKonu(String islenenKonu) {
 		this.islenenKonu = islenenKonu;
 	}
-
 
 	@Column(name = "inspection_date")
 	@Temporal(TemporalType.DATE)
@@ -97,5 +95,4 @@ public class YoklamaDetay extends BaseEntity {
 	public void setOgrenci(Ogrenci ogrenci) {
 		this.ogrenci = ogrenci;
 	}
-	
 }

@@ -39,7 +39,6 @@ public class Yoklama extends BaseEntity {
         this.id = id;
     }
 
-
     @ManyToOne
     @JoinColumn(name = "group_id")
     public Grup getGrup() {
@@ -49,5 +48,4 @@ public class Yoklama extends BaseEntity {
     public void setGrup(Grup grup) {
         this.grup = grup;
     }
-    
 }
