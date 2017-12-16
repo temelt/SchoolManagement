@@ -2,20 +2,20 @@ package com.temelt.schmgt.web.controller;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 
+import com.temelt.schmgt.web.data.repository.GrupRepository;
+import com.temelt.schmgt.web.data.repository.OgrenciGrupRepository;
 import com.temelt.schmgt.web.data.repository.YoklamaRepository;
+import com.temelt.schmgt.web.entity.ogrenciisleri.OgrenciGrup;
 import com.temelt.schmgt.web.entity.ogretmen.Yoklama;
+import com.temelt.schmgt.web.entity.ogretmen.YoklamaDetay;
+import com.temelt.schmgt.web.entity.yonetim.Grup;
 
 @Controller("yoklamaController")
 @Scope("session")
@@ -28,55 +28,59 @@ public class YoklamaController implements Serializable {
 	@Autowired
 	private YoklamaRepository yoklamaRepository;
 	
-	private List<Yoklama> yoklamaList;
+	@Autowired
+	private GrupRepository grupRepository;
 	
-	private Yoklama yoklama;
-	
-	private LazyDataModel<Yoklama> lazyModel;
-	
-	public void listele() {
-		lazyModel = new LazyDataModel<Yoklama>() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 7421802318801743459L;
+	@Autowired
+	private OgrenciGrupRepository ogrenciGrupRepository; 
 
-			@Override
-			public List<Yoklama> load(int first, int pageSize, String sortField, SortOrder sortOrder,
-					Map<String, Object> filters) {
-				PageRequest pageRequest = new PageRequest(first/pageSize, pageSize);
-				Page<Yoklama> liste = yoklamaRepository.findAllByOrderByIdAsc(pageRequest);
-				this.setRowCount((int)liste.getTotalElements());
-				return liste.getContent();
-			}
-		};
-		yoklamaList = yoklamaRepository.findAllByOrderByIdAsc();
-	}
-	
+	private List<Grup> grups;
+	private Yoklama yoklama;
+	private YoklamaDetay yoklamaDetay;
+	private List<OgrenciGrup> ogrenciGrups;
+	private List<Long> gelenOgrenciler;
+
 	@PostConstruct
 	private void init() {
-		yoklamaList = yoklamaRepository.findAllByOrderByIdAsc();
+		grups = grupRepository.findAll();
 		yoklama = new Yoklama();
-	}
+		yoklamaDetay= new YoklamaDetay();
+	}	
 	
-	public List<Yoklama> getYoklamaList() {
-		return yoklamaList;
+	public void yoklamaAl() {
+		System.out.println("yoklamaPanelGorunsun çaðrýldý");
+		ogrenciGrups = ogrenciGrupRepository.getByGrupId(yoklama.getGrup().getId());
 	}
-	
-	public void setYoklamaList(List<Yoklama> yoklamaList) {
-		this.yoklamaList = yoklamaList;
+
+	public List<Grup> getGrups() {
+		return grups;
 	}
-	
+
 	public Yoklama getYoklama() {
 		return yoklama;
 	}
-	
+
 	public void setYoklama(Yoklama yoklama) {
 		this.yoklama = yoklama;
 	}
-	
-	public LazyDataModel<Yoklama> getLazyModel() {
-		return lazyModel;
-	}
 
+	public YoklamaDetay getYoklamaDetay() {
+		return yoklamaDetay;
+	}
+	
+	public void setYoklamaDetay(YoklamaDetay yoklamaDetay) {
+		this.yoklamaDetay = yoklamaDetay;
+	}
+	
+	public List<OgrenciGrup> getOgrenciGrups() {
+		return ogrenciGrups;
+	}
+	
+	public List<Long> getGelenOgrenciler() {
+		return gelenOgrenciler;
+	}
+	
+	public void setGelenOgrenciler(List<Long> gelenOgrenciler) {
+		this.gelenOgrenciler = gelenOgrenciler;
+	}
 }

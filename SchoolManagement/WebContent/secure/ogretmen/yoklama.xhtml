@@ -5,6 +5,31 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/content/layout/template.xhtml">
 	<ui:define name="pageContent">
-		Yoklama Sayfası
+
+		<h:form id="frmYoklama">
+			<p:panelGrid columns="2" >
+			
+				<p:outputLabel>Grup</p:outputLabel>
+				<p:selectOneMenu value="#{yoklamaController.yoklama.grup}" effect="fold" converter="#{grupConverter}">
+		            <f:selectItems value="#{yoklamaController.grups}" var="grp" itemLabel="#{grp.adi}" itemValue="#{grp}" />
+		        </p:selectOneMenu>
+		        
+		        <p:outputLabel>Yoklama Tarihi</p:outputLabel>
+				<p:calendar id="clTarih" value="#{yoklamaController.yoklama.yoklamaTarihi}" showOn="button" pattern="dd/MM/yyyy" navigator="true">
+				</p:calendar>
+				
+				<p:outputLabel>Yoklama Konusu</p:outputLabel>
+				<p:inputText value="#{yoklamaController.yoklama.islenenKonu}"> </p:inputText>
+			
+				<p:commandButton value="Yoklama Al" process="@form" update="ogrencilerMenu" actionListener="#{yoklamaController.yoklamaAl}"/>
+			</p:panelGrid>
+			
+			<p:panelGrid id="pnlYoklamaDetay" widgetVar="pnlYoklamaDetay" >
+				<h3>Öğrenciler</h3>
+			    <p:selectManyCheckbox id="ogrencilerMenu" widgetVar="ogrencilerMenu" value="#{yoklamaController.gelenOgrenciler}" layout="responsive" columns="3">
+			        <f:selectItems value="#{yoklamaController.ogrenciGrups}" var="grp" itemLabel="#{grp.ogrenci.adSoyad}" itemValue="#{grp.ogrenci.id}" />
+			    </p:selectManyCheckbox>
+			</p:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>
