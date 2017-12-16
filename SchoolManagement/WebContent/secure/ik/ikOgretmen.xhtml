@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+ <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
@@ -44,9 +44,9 @@
 			<p:column headerText="İşlemler" width="100">
 				<p:commandButton icon="ui-icon-trash" update="tblOgretmen" actionListener="#{ikOgretmenController.OgretmenSil(ogr.id)}">
 				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
-				</p:commandButton>
-				<p:commandButton icon="ui-icon-pencil"></p:commandButton>
-				
+				 </p:commandButton>
+				 <p:commandButton icon="ui-icon-pencil"  update=":frmikOgretmen:dlgOgretmen" oncomplete="PF('dlgOgretmen').show();" actionListener="#{ikOgretmenController.OgretmenGuncelle(ogr.id)}"></p:commandButton>
+				 
 				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 			        <p:commandButton value="İptal" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

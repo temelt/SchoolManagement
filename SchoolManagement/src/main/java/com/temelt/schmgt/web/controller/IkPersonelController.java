@@ -41,6 +41,9 @@ public class IkPersonelController implements Serializable {
 		ikPersonelRepository.delete(p);
 		personelList = ikPersonelRepository.findAll();
 	}
+	public void PersonelGuncelle(Long id) {
+		personel = ikPersonelRepository.findOne(id);
+	}
 
 	public List<Personel> getPersonelList() {
 		return personelList;

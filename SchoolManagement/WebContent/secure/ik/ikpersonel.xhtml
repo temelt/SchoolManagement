@@ -48,8 +48,7 @@
 				<p:commandButton icon="ui-icon-trash" update="tblPersonel" actionListener="#{ikPersonelController.PersonelSil(per.id)}">
 				 <p:confirm header="Silme Onayı" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
 				</p:commandButton>
-				<p:commandButton icon="ui-icon-pencil"></p:commandButton>
-				
+		 		<p:commandButton icon="ui-icon-pencil"  update=":frmikOgretmen:dlgOgretmen" oncomplete="PF('dlgOgretmen').show();" actionListener="#{ikOgretmenController.OgretmenGuncelle(ogr.id)}"></p:commandButton>
 				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
 			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 			        <p:commandButton value="İptal" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

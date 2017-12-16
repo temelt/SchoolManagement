@@ -12,6 +12,7 @@ import com.temelt.schmgt.web.entity.ik.Personel;
 @Repository
 
 public interface IkPersonelRepository extends JpaRepository<Personel , Long>  {
-	@Query(value="select * from teacher where name ilike %?1% or surname ilike %?1%",nativeQuery=true)
-	List<Personel> getByAd(String query);
+	List<Personel>getAllByOrderByIdAsc();
+	
+	List<Personel> getByAd(String ad);
 }

@@ -11,7 +11,7 @@ import com.temelt.schmgt.web.entity.ik.Ogretmen;
 
 public interface IkOgretmenRepository extends JpaRepository<Ogretmen , Long> {
 
-	@Query(value="select * from teacher where name ilike %?1% or surname ilike %?1%",nativeQuery=true)
-	List<Ogretmen> getByAd(String query);
+	List<Ogretmen>getAllByOrderByIdAsc();
+	List<Ogretmen> getByAd(String ad);
 
 }

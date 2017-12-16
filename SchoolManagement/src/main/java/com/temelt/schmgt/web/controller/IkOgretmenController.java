@@ -41,6 +41,9 @@ public class IkOgretmenController  implements Serializable{
 		ikogretmenRepository.delete(o);
 		ogretmenList = ikogretmenRepository.findAll();
 	}
+	public void OgretmenGuncelle(Long id) {
+		ogretmen = ikogretmenRepository.findOne(id);
+	}
 
 	public List<Ogretmen> getOgretmenList() {
 		return ogretmenList;
