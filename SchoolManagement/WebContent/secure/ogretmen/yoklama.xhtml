@@ -14,6 +14,7 @@
 		            <f:selectItems value="#{yoklamaController.grups}" var="grp" itemLabel="#{grp.adi}" itemValue="#{grp}" />
 		        </p:selectOneMenu>
 		        
+		        
 		        <p:outputLabel>Yoklama Tarihi</p:outputLabel>
 				<p:calendar id="clTarih" value="#{yoklamaController.yoklama.yoklamaTarihi}" showOn="button" pattern="dd/MM/yyyy" navigator="true">
 				</p:calendar>
@@ -21,8 +22,9 @@
 				<p:outputLabel>Yoklama Konusu</p:outputLabel>
 				<p:inputText value="#{yoklamaController.yoklama.islenenKonu}"> </p:inputText>
 			
-				<p:commandButton value="Yoklama Al" process="@form" update="ogrencilerMenu" actionListener="#{yoklamaController.yoklamaAl}"/>
+				
 			</p:panelGrid>
+			<p:commandButton value="Yoklama Getir" update="ogrencilerMenu" actionListener="#{yoklamaController.yoklamaGetir}"/>
 			
 			<p:panelGrid id="pnlYoklamaDetay" widgetVar="pnlYoklamaDetay" >
 				<h3>Öğrenciler</h3>
@@ -30,6 +32,8 @@
 			        <f:selectItems value="#{yoklamaController.ogrenciGrups}" var="grp" itemLabel="#{grp.ogrenci.adSoyad}" itemValue="#{grp.ogrenci.id}" />
 			    </p:selectManyCheckbox>
 			</p:panelGrid>
+			
+			<p:commandButton value="Yoklamayı Kaydet" update="@form" actionListener="#{yoklamaController.yoklamaKaydet}"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -110,5 +110,14 @@ public class Grup extends BaseEntity{
         return "Grup{" + "id=" + id + ", adi=" + adi + ", kurs=" + kurs + ", Ogretmen=" + ogretmen + ", ogrenciSayisi=" + ogrenciSayisi + ", salon=" + salon + ", baslamaTarihi=" + baslamaTarihi + ", bitisTarihi=" + bitisTarihi + '}';
     }  
     
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Grup){
+    		if(((Grup)obj).getId().equals(this.id)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     
 }
