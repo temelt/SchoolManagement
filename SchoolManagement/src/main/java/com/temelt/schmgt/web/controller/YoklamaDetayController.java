@@ -11,17 +11,16 @@ import javax.faces.context.FacesContext;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 
-import com.temelt.schmgt.web.data.repository.KullaniciRepository;
 import com.temelt.schmgt.web.data.repository.YoklamaDetayRepository;
 import com.temelt.schmgt.web.entity.ogretmen.YoklamaDetay;
 
 @Controller("yoklamaDetayController")
-@Repository("session")
+@Scope("session")
 public class YoklamaDetayController implements Serializable  {
 	/**
 	 * 
@@ -30,8 +29,6 @@ public class YoklamaDetayController implements Serializable  {
 
 	@Autowired
 	private YoklamaDetayRepository yoklamaDetayRepository;
-
-	private List<YoklamaDetay> yoklamaDetayList;
 	
 	private YoklamaDetay yoklamaDetay; 
 	
@@ -39,7 +36,6 @@ public class YoklamaDetayController implements Serializable  {
 	
 	@PostConstruct
 	private void init() {
-		yoklamaDetayList= yoklamaDetayRepository.findAllByOrderByIdAsc();
 		yoklamaDetay = new YoklamaDetay();
 	}
 	
@@ -48,7 +44,6 @@ public class YoklamaDetayController implements Serializable  {
 		try {
 			yoklamaDetayRepository.save(yoklamaDetay);
 			yoklamaDetay = new YoklamaDetay();
-			yoklamaDetayList = yoklamaDetayRepository.findAllByOrderByIdAsc();
 			listele();
 			context.addMessage(null, new FacesMessage("YOKLAMA", "Yoklama Alýndý"));
 		} catch (Exception e) {
@@ -56,6 +51,7 @@ public class YoklamaDetayController implements Serializable  {
 		}
 		yoklamaDetay = new YoklamaDetay();
 	}
+	
 	/*Yoklama alma iþleminde bu methoda ihtiyaç yok ama yinede burada dursun*/
 	private void yoklamaSil(Long id) {
 		YoklamaDetay yoklamaDetay = yoklamaDetayRepository.findOne(id);
@@ -67,6 +63,11 @@ public class YoklamaDetayController implements Serializable  {
 	
 	public void listele() {
 		lazyModel = new LazyDataModel<YoklamaDetay>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -2738303181191539506L;
+
 			@Override
 			public List<YoklamaDetay> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 					Map<String, Object> filters) {
@@ -76,14 +77,6 @@ public class YoklamaDetayController implements Serializable  {
 				return liste.getContent();
 			}
 		};
-	}
-	
-	public List<YoklamaDetay> getYoklamaDetayList() {
-		return yoklamaDetayList;
-	}
-	
-	public void setYoklamaDetayList(List<YoklamaDetay> yoklamaDetayList) {
-		this.yoklamaDetayList = yoklamaDetayList;
 	}
 	
 	public YoklamaDetay getYoklamaDetay() {

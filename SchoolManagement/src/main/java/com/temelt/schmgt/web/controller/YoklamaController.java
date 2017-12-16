@@ -9,17 +9,16 @@ import javax.annotation.PostConstruct;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 
 import com.temelt.schmgt.web.data.repository.YoklamaRepository;
 import com.temelt.schmgt.web.entity.ogretmen.Yoklama;
-import com.temelt.schmgt.web.entity.ogretmen.YoklamaDetay;
 
-@Controller("yoklamaController ")
-@Repository("session")
+@Controller("yoklamaController")
+@Scope("session")
 public class YoklamaController implements Serializable {
 	/**
 	 * 
@@ -37,6 +36,11 @@ public class YoklamaController implements Serializable {
 	
 	public void listele() {
 		lazyModel = new LazyDataModel<Yoklama>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7421802318801743459L;
+
 			@Override
 			public List<Yoklama> load(int first, int pageSize, String sortField, SortOrder sortOrder,
 					Map<String, Object> filters) {
