@@ -34,10 +34,10 @@
  			</p:column>
  			
  			<p:column headerText="İşlemler" width="100">
-  				<p:commandButton icon="ui-icon-trash" update="tblMuhasebe" actionListener="#{gelirController.gelirSil(gel.id)}">
+  				<p:commandButton icon="ui-icon-trash" update="tblMuhasebe :frmMuhasebe:br" actionListener="#{gelirController.gelirSil(gel.id)}">
   				 <p:confirm header="Silme Onay" message="Kaydı Silmek İstediğinizden emin misiniz?" icon="ui-icon-alert" />
   				</p:commandButton>
-  				<p:commandButton icon="ui-icon-pencil"  update=":frmMuhasebe:dlgMuhasebe" oncomplete="PF('dlgMuhasebe').show();" actionListener="#{gelirController.gelirGuncelle(gel.id)}"></p:commandButton>
+  				<p:commandButton icon="ui-icon-pencil"  update=":frmMuhasebe:dlgMuhasebe :frmMuhasebe:br" oncomplete="PF('dlgMuhasebe').show();" actionListener="#{gelirController.gelirGuncelle(gel.id)}"></p:commandButton>
   				
   				 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
   			        <p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
@@ -50,7 +50,7 @@
 			</f:facet>
 			<f:facet name="footer">
 				<p:commandButton value="Yeni" icon="ui-icon-plus" actionListener="#{gelirController.yenileGelir}"
-				update=":frmMuhasebe:dlgMuhasebe" oncomplete="PF('dlgMuhasebe').show();" />
+				update=":frmMuhasebe:dlgMuhasebe :frmMuhasebe:br " oncomplete="PF('dlgMuhasebe').show();" />
 			</f:facet>
  		</p:dataTable>
  
@@ -66,7 +66,7 @@
  				<p:inputText value="#{gelirController.gelir.konu}"/>
  
  				<p:outputLabel>Miktar</p:outputLabel>
- 				<p:inputText value="#{gelirController.gelir.miktar}"/>
+ 				<p:inputText value="#{gelirController.gelir.miktar}" converter="#{bigDecimalConverter}"/>
  				
  				<p:outputLabel>Tarih</p:outputLabel>
 				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{gelirController.gelir.tarih}"/>
@@ -82,11 +82,39 @@
 				<p:commandButton value="İptal" type="button" onclick="PF('dlgMuhasebe').hide();" />
 
 				<p:commandButton value="Kaydet" actionListener="#{gelirController.gelirKaydet}" 
- 				update="tblMuhasebe dlgMuhasebe" oncomplete="PF('dlgMuhasebe').hide();" />
+ 				update="tblMuhasebe dlgMuhasebe br" oncomplete="PF('dlgMuhasebe').hide();" />
 			</f:facet>
  			
   		</p:dialog>
-  
+
+
+
+           <p:panelGrid columns="2" id="dv" widgetVar="dv"   >
+ 					
+        <p:column >
+ 				<h:outputText  value="#{dovizWs.dolar}  #{dovizWs.dolarAlis}" />
+ 			</p:column>    
+ 			
+ 			<p:column >
+ 				<h:outputText  value="#{dovizWs.euro}  #{dovizWs.euroAlis}" />
+ 			</p:column>        
+               				
+               				
+               						
+         </p:panelGrid> 
+         
+         
+ 	           <p:panelGrid columns="2"  >
+ 	           
+			
+                   <p:chart  id="br" type="bar" model="#{gelirTabloController.animatedModel2}" style="width:400px;" />
+                   
+                   
+                   </p:panelGrid> 
+                   
+
+
+           
   	</h:form>
   	</ui:define>
  </ui:composition>

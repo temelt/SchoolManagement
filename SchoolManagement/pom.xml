@@ -65,7 +65,67 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.11.8.RELEASE</version>
 		</dependency>
+		
+	<!-- doviz kuru Dependencies -->	
+		<dependency>
+    <groupId>javax.xml</groupId>
+    <artifactId>jaxrpc-api</artifactId>
+    <version>1.1</version>
+</dependency>
 
+<dependency>
+    <groupId>commons-discovery</groupId>
+    <artifactId>commons-discovery</artifactId>
+    <version>0.5</version>
+</dependency>
+<dependency>
+    <groupId>commons-logging</groupId>
+    <artifactId>commons-logging</artifactId>
+    <version>1.1.1</version>
+</dependency>
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.daisy.pipeline</groupId>
+    <artifactId>webservice-utils</artifactId>
+    <version>1.0.0</version>
+</dependency>
+<dependency>
+    <groupId>javax.xml</groupId>
+    <artifactId>jaxrpc-api</artifactId>
+    <version>1.1</version>
+</dependency>
+
+<dependency>
+    <groupId>wsdl4j</groupId>
+    <artifactId>wsdl4j</artifactId>
+    <version>1.6.2</version>
+</dependency>
+ <dependency>
+    <groupId>org.apache.axis</groupId>
+    <artifactId>axis</artifactId>
+    <version>1.4</version>
+</dependency> 
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.25</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.ws.security</groupId>
+    <artifactId>wss4j</artifactId>
+    <version>1.6.19</version>
+</dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.25</version>
+</dependency>
+<!-- doviz kuru Dependencies -->
 
 		<!-- Spring Security Dependencies -->
 		<dependency>

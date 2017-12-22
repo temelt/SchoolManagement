@@ -53,11 +53,10 @@
  				<p:inputText value="#{giderController.gider.konu}"/>
  
  				<p:outputLabel>Miktar</p:outputLabel>
- 				<p:inputText  value="#{giderController.gider.miktar}"/>
- 				
- 				<p:outputLabel>Tarih</p:outputLabel>
-  				<p:inputText value="#{giderController.gider.tarih}"/>
-  				<p:commandButton value="İptal" type="button" onclick="PF('dlgMuhasebeGider').hide();" />
+ 				<p:inputText  value="#{giderController.gider.miktar}" converter="#{bigDecimalConverter}"/>
+  				
+  				<p:outputLabel>Tarih</p:outputLabel>
+				<p:calendar locale="tr" maxdate="01/01/2030" pattern="dd/MM/yyyy"  value="#{giderController.gider.tarih}"/>
   
   				<p:commandButton value="Kaydet" actionListener="#{giderController.giderKaydet}" 
   					update="tblMuhasebeGider dlgMuhasebeGider" oncomplete="PF('dlgMuhasebeGider').hide();" />

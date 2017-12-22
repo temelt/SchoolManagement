@@ -2,6 +2,10 @@ package com.temelt.schmgt.web.controller;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +13,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.xml.rpc.ServiceException;
+import javax.xml.soap.SOAPException;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -25,7 +31,9 @@ import com.temelt.schmgt.web.entity.ik.Ogretmen;
 import com.temelt.schmgt.web.entity.muhasebe.Gelir;
 import com.temelt.schmgt.web.entity.ogrenciisleri.Ogrenci;
 import com.temelt.schmgt.web.entity.ogrenciisleri.OgrenciOdeme;
+import com.temelt.schmgt.web.exceptions.BigDecimalException;
 import com.temelt.schmgt.web.exceptions.GelirMuhasebeException;
+import com.temelt.schmgt.web.ws.DovizWs;
 
 
 
@@ -46,6 +54,8 @@ public class GelirController implements Serializable {
 	private LazyDataModel<Gelir> lazyModel;
 	private List<OgrenciOdeme> listeOgrenciOdeme;
 	private List<Ogrenci> listeOgrenci;
+	private String doviz;
+
 
 
 	@PostConstruct
@@ -54,6 +64,7 @@ public class GelirController implements Serializable {
 		gelir = new Gelir();
 		listeOgrenciOdeme=ogrenciOdemeRepository.findAll();
 		listeOgrenci=ogrenciRepository.findAll();
+          System.out.println("init edildi gelir controller");
 	}
 	
 	private void listele(){
@@ -81,42 +92,57 @@ public class GelirController implements Serializable {
 	
 
 
-	public void gelirKaydet() {
+	public void gelirKaydet()  {
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			if(!gelir.getKonu().isEmpty()){
+			if(!gelir.getKonu().isEmpty()&&gelir.getMiktar() instanceof BigDecimal){
 				System.out.println("Gelir Kaydettik");
 			gelirRepository.save(gelir);
 			listele();
 	        context.addMessage(null, new FacesMessage("KAYIT",  "Kayýt Eklendi" ) );
 			}
 			else{
-				throw new GelirMuhasebeException(null);
+				throw new GelirMuhasebeException(null);			
 			}
 			
-		} catch (GelirMuhasebeException e) {
+		} catch (GelirMuhasebeException e){
 		
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "HATA",  "Kayýt Eklenemedi"
-					+ e.getLocalizedMessage() ) );
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "HATA",  "Kayýt Eklenemedi" ) );
 		}
         gelir=new Gelir();
+        
+
 	}
 
-	public void gelirSil(Long id) {
+	public void gelirSil(Long id)  {
 		Gelir k = gelirRepository.findOne(id);
 		gelirRepository.delete(k);
 		listele();
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage("KAYIT",  "Kayýt Silindi" ) );
+		System.out.println("kayýt sýldýk");
+		
 	}
+
 	
 	public void yenileGelir(){
 		gelir =new Gelir();
+		System.out.println("geliride yeniledik");
 	}
 
 	public void gelirGuncelle(Long id) {
 		gelir = gelirRepository.findOne(id);
 
+	}
+	
+	public void dovizAl() throws MalformedURLException, RemoteException, ServiceException, SOAPException{
+//		String d="";
+	//    doviz=new DovizWs().getDoviz(d);
+	//   System.out.println("---------------"+" Dovuz = "+doviz);
+	}
+	
+	public String getDoviz() {
+		return doviz;
 	}
 	
 	public LazyDataModel<Gelir> getLazyModel() {
