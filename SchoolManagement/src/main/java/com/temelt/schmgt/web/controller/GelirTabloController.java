@@ -2,6 +2,8 @@ package com.temelt.schmgt.web.controller;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.xml.rpc.ServiceException;
+import javax.xml.soap.SOAPException;
 
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -25,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import com.temelt.schmgt.web.data.repository.GelirMuhasebeRepository;
 import com.temelt.schmgt.web.data.repository.GiderMuhasebeRepository;
 import com.temelt.schmgt.web.entity.muhasebe.Gelir;
+import com.temelt.schmgt.web.ws.DovizWs;
 
 @Controller("gelirTabloController")
 @Scope("request")
@@ -53,18 +58,18 @@ public class GelirTabloController implements Serializable {
 	private BarChartModel animatedModel1;
 	private BarChartModel animatedModel2;
 	private List<BigDecimal> liste = new ArrayList<>();
-	private List<BigDecimal> liste1 = new ArrayList<>();
+	private List<Double> liste1 = new ArrayList<>();
 
 	public List<BigDecimal> getListe() {
 		return liste;
 	}
 
-	public List<BigDecimal> getListe1() {
+	public List<Double> getListe1() {
 		return liste1;
 	}
 
 	@PostConstruct
-	public void init() {
+	public void init() throws MalformedURLException, RemoteException, ServiceException, SOAPException {
 		createAnimatedModels();
 		createAnimatedModels11();
 	}
@@ -191,7 +196,7 @@ public class GelirTabloController implements Serializable {
 
 	}
 	// Dolar Euro Barchart///////////////////////////
-	private void createAnimatedModels11() {
+	private void createAnimatedModels11() throws MalformedURLException, RemoteException, ServiceException, SOAPException {
 
 		hesap11();
 		animatedModel1 = initBarModel1();
@@ -200,21 +205,21 @@ public class GelirTabloController implements Serializable {
 		animatedModel1.setLegendPosition("ne");
 		Axis yAxis1 = animatedModel1.getAxis(AxisType.Y);
 
-		if (liste.get(0).intValue() > liste.get(1).intValue()) {
+		if (liste1.get(0).intValue() > liste1.get(1).intValue()) {
 
-			int a = liste.get(0).intValue() + 100;
+			Double a = liste1.get(0).doubleValue() + 100;
 			yAxis1.setMin(0);
 			yAxis1.setMax(a);
 		} else {
-			int b = liste.get(1).intValue() + 100;
+			Double b = liste1.get(1).doubleValue() + 100;
 			yAxis1.setMin(0);
 			yAxis1.setMax(b);
 		}
-		liste.clear();
+		liste1.clear();
 
 	}
 	
-	public void hesap11() {
+	public void hesap11() throws MalformedURLException, RemoteException, ServiceException, SOAPException {
 		// TODO Auto-generated method stub
 		try {
 
@@ -234,22 +239,36 @@ public class GelirTabloController implements Serializable {
 					System.out.println("------------------------------------");
 					BigDecimal gelirToplam = new BigDecimal(0);
 					BigDecimal gelirToplamSonuc = gelirToplam.add(gelirRepository.getAllCountSumQuantity(bas, son));
-					System.out.println(gelirToplamSonuc);
-					liste.add(0, gelirToplamSonuc);
+					
+					DovizWs dovizWs= new DovizWs();
+				       String a= dovizWs.getDoviz();
+				       Double dolarSub=Double.parseDouble(a.substring(0, 6)) ;
+				       Double euroSub=Double.parseDouble(a.substring(7));
+				       Double sonuc = gelirToplamSonuc.doubleValue()/dolarSub;
+				      
+					
+					System.out.println(sonuc);
+					liste1.add(0, sonuc);
 				} catch (NullPointerException e) {
-					BigDecimal gelirToplamy = new BigDecimal(1);
-					liste.add(0, gelirToplamy);
+					Double gelirToplamy = 1.0;
+					liste1.add(0, gelirToplamy);
 				}
 				try {
 					System.out.println("------------------------------------");
 					BigDecimal giderToplam = new BigDecimal(0);
 					BigDecimal giderToplamSonuc = giderToplam.add(giderRepository.getAllCountSumQuantity(bas, son));
+					
+					DovizWs dovizWs= new DovizWs();
+				       String a= dovizWs.getDoviz();
+				       Double dolarSub=Double.parseDouble(a.substring(0, 6)) ;
+				       Double euroSub=Double.parseDouble(a.substring(7));
+				       Double sonuc = giderToplamSonuc.doubleValue()/euroSub;
 					System.out.println(giderToplamSonuc);
-					liste.add(1, giderToplamSonuc);
+					liste1.add(1, sonuc);
 				} catch (NullPointerException e) {
 					// TODO: handle exception
-					BigDecimal giderToplamy = new BigDecimal(1);
-					liste.add(1, giderToplamy);
+					Double giderToplamy = 1.0;	
+					liste1.add(1, giderToplamy);
 
 				}
 
@@ -257,25 +276,36 @@ public class GelirTabloController implements Serializable {
 				try {
 					System.out.println("------------------------------------");
 					BigDecimal gelirToplam = new BigDecimal(0);
-					BigDecimal gelirToplamSonuc = gelirToplam
-							.add(gelirRepository.getAllCountSumQuantity(baslamaTarih, bitisTarih));
-					System.out.println(gelirToplamSonuc);
-					liste.add(0, gelirToplamSonuc);
+					BigDecimal gelirToplamSonuc = gelirToplam.add(gelirRepository.getAllCountSumQuantity(bas, son));
+					
+					DovizWs dovizWs= new DovizWs();
+				       String a= dovizWs.getDoviz();
+				       Double dolarSub=Double.parseDouble(a.substring(0, 6)) ;
+				       Double euroSub=Double.parseDouble(a.substring(7));
+				       Double sonuc = gelirToplamSonuc.doubleValue()/dolarSub;
+				      
+					
+					System.out.println(sonuc);
+					liste1.add(0, sonuc);
 				} catch (NullPointerException e) {
-					BigDecimal gelirToplamy = new BigDecimal(1);
-					liste.add(0, gelirToplamy);
-				}
-				try {
+					Double gelirToplamy = 1.0;
+					liste1.add(0, gelirToplamy);
+				}try {
 					System.out.println("------------------------------------");
 					BigDecimal giderToplam = new BigDecimal(0);
-					BigDecimal giderToplamSonuc = giderToplam
-							.add(giderRepository.getAllCountSumQuantity(baslamaTarih, bitisTarih));
+					BigDecimal giderToplamSonuc = giderToplam.add(giderRepository.getAllCountSumQuantity(bas, son));
+					
+					DovizWs dovizWs= new DovizWs();
+				       String a= dovizWs.getDoviz();
+				       Double dolarSub=Double.parseDouble(a.substring(0, 6)) ;
+				       Double euroSub=Double.parseDouble(a.substring(7));
+				       Double sonuc = giderToplamSonuc.doubleValue()/euroSub;
 					System.out.println(giderToplamSonuc);
-					liste.add(1, giderToplamSonuc);
+					liste1.add(1, sonuc);
 				} catch (NullPointerException e) {
 					// TODO: handle exception
-					BigDecimal giderToplamy = new BigDecimal(1);
-					liste.add(1, giderToplamy);
+					Double giderToplamy = 1.0;	
+					liste1.add(1, giderToplamy);
 
 				}
 			}
@@ -289,13 +319,13 @@ public class GelirTabloController implements Serializable {
 		BarChartModel model1 = new BarChartModel();
 		ChartSeries dolar = new ChartSeries();
 		dolar.setLabel("Dolar");
-		dolar.set("dolar", liste.get(0));
-		System.out.println("---------- liste 0 =" + liste.get(0));
+		dolar.set("dolar", liste1.get(0));
+		System.out.println("---------- liste 0 =" + liste1.get(0));
 
 		ChartSeries euro = new ChartSeries();
 		euro.setLabel("Euro");
-		euro.set("euro", liste.get(1));
-		System.out.println("---------- liste 1 =" + liste.get(1));
+		euro.set("euro", liste1.get(1));
+		System.out.println("---------- liste 1 =" + liste1.get(1));
 
 		model1.addSeries(dolar);
 		model1.addSeries(euro);
