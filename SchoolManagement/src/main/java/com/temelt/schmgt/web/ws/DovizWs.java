@@ -61,7 +61,7 @@ public class DovizWs {
 		}
 	}
 	
-	public void getDoviz() throws MalformedURLException, ServiceException, SOAPException, RemoteException {
+	public String getDoviz() throws MalformedURLException, ServiceException, SOAPException, RemoteException {
 		DataServiceLocator wsLocator = new DataServiceLocator();
 		DataServiceSoap ws = wsLocator.getDataServiceSoap(new URL("http://data.altinkaynak.com/DataService.asmx?WSDL"));
 
@@ -80,6 +80,7 @@ public class DovizWs {
           System.out.println(a);
           System.out.println("dolar alis = "+dolarAlis);
           System.out.println("Euro alis = " +euroAlis);
+		return dolarAlis+" "+euroAlis;
 		
 		
 		// TODO Auto-generated method stub

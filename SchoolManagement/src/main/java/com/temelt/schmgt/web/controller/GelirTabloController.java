@@ -49,23 +49,30 @@ public class GelirTabloController implements Serializable {
 	public Date getBitisTarih() {
 		return bitisTarih;
 	}
-
+    
+	private BarChartModel animatedModel1;
 	private BarChartModel animatedModel2;
 	private List<BigDecimal> liste = new ArrayList<>();
+	private List<BigDecimal> liste1 = new ArrayList<>();
 
 	public List<BigDecimal> getListe() {
 		return liste;
 	}
 
-	public void setListe(List<BigDecimal> liste) {
-		this.liste = liste;
+	public List<BigDecimal> getListe1() {
+		return liste1;
 	}
 
 	@PostConstruct
 	public void init() {
 		createAnimatedModels();
+		createAnimatedModels11();
 	}
 
+	public BarChartModel getAnimatedModel1() {
+		return animatedModel1;
+	}
+	
 	public BarChartModel getAnimatedModel2() {
 		return animatedModel2;
 	}
@@ -182,6 +189,118 @@ public class GelirTabloController implements Serializable {
 			// TODO: handle exception
 		}
 
+	}
+	// Dolar Euro Barchart///////////////////////////
+	private void createAnimatedModels11() {
+
+		hesap11();
+		animatedModel1 = initBarModel1();
+		animatedModel1.setTitle("Doviz");
+		animatedModel1.setAnimate(true);
+		animatedModel1.setLegendPosition("ne");
+		Axis yAxis1 = animatedModel1.getAxis(AxisType.Y);
+
+		if (liste.get(0).intValue() > liste.get(1).intValue()) {
+
+			int a = liste.get(0).intValue() + 100;
+			yAxis1.setMin(0);
+			yAxis1.setMax(a);
+		} else {
+			int b = liste.get(1).intValue() + 100;
+			yAxis1.setMin(0);
+			yAxis1.setMax(b);
+		}
+		liste.clear();
+
+	}
+	
+	public void hesap11() {
+		// TODO Auto-generated method stub
+		try {
+
+			String string = "2000-20-01 00:00:00";
+			DateFormat format = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+			Date bas = format.parse(string);
+			System.out.println(bas);
+
+			String string1 = "2050-20-12 00:00:00";
+			DateFormat format1 = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+			Date son = format1.parse(string1);
+			System.out.println(son);
+
+			if (baslamaTarih == null || bitisTarih == null) {
+
+				try {
+					System.out.println("------------------------------------");
+					BigDecimal gelirToplam = new BigDecimal(0);
+					BigDecimal gelirToplamSonuc = gelirToplam.add(gelirRepository.getAllCountSumQuantity(bas, son));
+					System.out.println(gelirToplamSonuc);
+					liste.add(0, gelirToplamSonuc);
+				} catch (NullPointerException e) {
+					BigDecimal gelirToplamy = new BigDecimal(1);
+					liste.add(0, gelirToplamy);
+				}
+				try {
+					System.out.println("------------------------------------");
+					BigDecimal giderToplam = new BigDecimal(0);
+					BigDecimal giderToplamSonuc = giderToplam.add(giderRepository.getAllCountSumQuantity(bas, son));
+					System.out.println(giderToplamSonuc);
+					liste.add(1, giderToplamSonuc);
+				} catch (NullPointerException e) {
+					// TODO: handle exception
+					BigDecimal giderToplamy = new BigDecimal(1);
+					liste.add(1, giderToplamy);
+
+				}
+
+			} else {
+				try {
+					System.out.println("------------------------------------");
+					BigDecimal gelirToplam = new BigDecimal(0);
+					BigDecimal gelirToplamSonuc = gelirToplam
+							.add(gelirRepository.getAllCountSumQuantity(baslamaTarih, bitisTarih));
+					System.out.println(gelirToplamSonuc);
+					liste.add(0, gelirToplamSonuc);
+				} catch (NullPointerException e) {
+					BigDecimal gelirToplamy = new BigDecimal(1);
+					liste.add(0, gelirToplamy);
+				}
+				try {
+					System.out.println("------------------------------------");
+					BigDecimal giderToplam = new BigDecimal(0);
+					BigDecimal giderToplamSonuc = giderToplam
+							.add(giderRepository.getAllCountSumQuantity(baslamaTarih, bitisTarih));
+					System.out.println(giderToplamSonuc);
+					liste.add(1, giderToplamSonuc);
+				} catch (NullPointerException e) {
+					// TODO: handle exception
+					BigDecimal giderToplamy = new BigDecimal(1);
+					liste.add(1, giderToplamy);
+
+				}
+			}
+
+		} catch (ParseException e) {
+			// TODO: handle exception
+		}
+	}
+	private BarChartModel initBarModel1() {
+
+		BarChartModel model1 = new BarChartModel();
+		ChartSeries dolar = new ChartSeries();
+		dolar.setLabel("Dolar");
+		dolar.set("dolar", liste.get(0));
+		System.out.println("---------- liste 0 =" + liste.get(0));
+
+		ChartSeries euro = new ChartSeries();
+		euro.setLabel("Euro");
+		euro.set("euro", liste.get(1));
+		System.out.println("---------- liste 1 =" + liste.get(1));
+
+		model1.addSeries(dolar);
+		model1.addSeries(euro);
+
+		return model1;
 	}
 
 }
