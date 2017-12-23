@@ -23,12 +23,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/jaf-1.0.2/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/javamail-1.4/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/javamail-1.4/lib/dsn.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/javamail-1.4/lib/imap.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/javamail-1.4/lib/mailapi.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/javamail-1.4/lib/pop3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Furkan/Desktop/javamail-1.4/lib/smtp.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
