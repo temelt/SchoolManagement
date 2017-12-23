@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/content/layout/template.xhtml">
+	<ui:define name="pageContent">
+		<h:form id="frmRetro">
+			<p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"
+				life="5000" />
+
+			<p:panelGrid columns="">
+
+				<p:outputLabel value="Username :"></p:outputLabel>
+				<p:inputText value="#{retroController.username}"></p:inputText>
+				<p:commandButton value="Get User" update=":frmRetro:tbUser" actionListener="#{retroController.kullaniciGetir}"></p:commandButton>
+			</p:panelGrid>
+			<br/>
+		    <h3 style="margin-top:0">Kullanıcı Detayları</h3>
+		    <p:tabView id="tbUser" widgetVar="tbUser">
+		        <p:tab title="User Info">
+		            <h:panelGrid columns="2" cellpadding="10">
+		            	<img style="-webkit-user-select: none;background-position: 0px 0px, 10px 10px;background-size: 20px 20px;background-image:linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee 100%),linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);" 
+		            	src="#{retroController.user.avatar_url}"></img>
+		                <h:outputText value="#{retroController.user.name}" />
+		            </h:panelGrid>
+		        </p:tab>
+		        <p:tab title="User Repositories">
+		            <h:panelGrid columns="2" cellpadding="10">
+		                <ui:repeat var="repo" value="#{retroController.repos}">
+		                	<ul class="list-group">
+							  <li class="list-group-item">#{repo.name}</li>
+							</ul>
+		                </ui:repeat>
+		            </h:panelGrid>
+		        </p:tab>
+		        <p:tab title="User Stars">
+		            <h:panelGrid columns="2" cellpadding="10">
+		                <h:outputText value="After a break of more than 15 years..." />
+		            </h:panelGrid>
+		        </p:tab>
+		    </p:tabView>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
